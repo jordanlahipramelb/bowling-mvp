@@ -4,4 +4,6 @@
 
 -   https://developer.mapquest.com/documentation/search-api/v4/swagger/
 
+## Schema Design
+
 ![Image of schema](bowling_scorecard_schema.png)
