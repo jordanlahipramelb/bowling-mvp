@@ -60,40 +60,44 @@ class Scorecard(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
+    frame_0 = db.Column(db.Text, nullable=False, default=0)
+    frame1_ball1 = db.Column(db.Integer, default=0)
+    frame1_ball2 = db.Column(db.Integer, default=0)
+    frame2_ball1 = db.Column(db.Integer, default=0)
+    frame2_ball2 = db.Column(db.Integer, default=0)
+    frame3_ball1 = db.Column(db.Integer, default=0)
+    frame3_ball2 = db.Column(db.Integer, default=0)
+    frame4_ball1 = db.Column(db.Integer, default=0)
+    frame4_ball2 = db.Column(db.Integer, default=0)
+    frame5_ball1 = db.Column(db.Integer, default=0)
+    frame5_ball2 = db.Column(db.Integer, default=0)
+    frame6_ball1 = db.Column(db.Integer, default=0)
+    frame6_ball2 = db.Column(db.Integer, default=0)
+    frame7_ball1 = db.Column(db.Integer, default=0)
+    frame7_ball2 = db.Column(db.Integer, default=0)
+    frame8_ball1 = db.Column(db.Integer, default=0)
+    frame8_ball2 = db.Column(db.Integer, default=0)
+    frame9_ball1 = db.Column(db.Integer, default=0)
+    frame9_ball2 = db.Column(db.Integer, default=0)
+    frame10_ball1 = db.Column(db.Integer, default=0)
+    frame10_ball2 = db.Column(db.Integer, default=0)
+    frame10_ball3 = db.Column(db.Integer, default=0)
+    total = db.Column(db.Integer, nullable=False)
+
+
+class DateLocation(db.Model):
+
+    __tablename__ = "dates_locations"
+
+    id = db.Column(db.Integer, db.ForeignKey("scorecards.id"), primary_key=True)
+    bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
     date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     location = db.Column(db.Text, nullable=False)
-    frame_0 = db.Column(db.Text, default=0)
-    frame_1_1 = db.Column(db.Text, nullable=False)
-    frame_1_2 = db.Column(db.Text, nullable=False)
-    frame_2_1 = db.Column(db.Text, nullable=False)
-    frame_2_2 = db.Column(db.Text, nullable=False)
-    frame_3_1 = db.Column(db.Text, nullable=False)
-    frame_3_2 = db.Column(db.Text, nullable=False)
-    frame_4_1 = db.Column(db.Text, nullable=False)
-    frame_4_2 = db.Column(db.Text, nullable=False)
-    frame_5_1 = db.Column(db.Text, nullable=False)
-    frame_5_2 = db.Column(db.Text, nullable=False)
-    frame_6_1 = db.Column(db.Text, nullable=False)
-    frame_6_2 = db.Column(db.Text, nullable=False)
-    frame_7_1 = db.Column(db.Text, nullable=False)
-    frame_7_2 = db.Column(db.Text, nullable=False)
-    frame_8_1 = db.Column(db.Text, nullable=False)
-    frame_8_2 = db.Column(db.Text, nullable=False)
-    frame_9_1 = db.Column(db.Text, nullable=False)
-    frame_9_2 = db.Column(db.Text, nullable=False)
-    frame_10_1 = db.Column(db.Text, nullable=False)
-    frame_10_2 = db.Column(db.Text, nullable=False)
-    frame_10_3 = db.Column(db.Text)
-    total = db.Column(db.Text, nullable=False)
 
 
 class BowlerScore(db.Model):
 
     __tablename__ = "bowlers_scores"
+
     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
     scorecard_id = db.Column(db.Integer, db.ForeignKey("scorecards.id"), primary_key=True)
-    total = db.Column(db.Integer, db.ForeignKey("scorecards.total"))
-
-    # ! set up relationship?
-    date = db.Column(db.Integer, db.ForeignKey("scorecards.date"))
-    location = db.Column(db.Integer, db.ForeignKey("scorecards.location"))

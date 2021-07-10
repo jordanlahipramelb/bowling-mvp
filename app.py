@@ -13,6 +13,14 @@ app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 
 
 connect_db(app)
+db.drop_all()
 db.create_all()
 
 toolbar = DebugToolbarExtension(app)
+
+
+@app.route("/scorecard")
+def show_scorecard():
+    """Displays scorecard."""
+
+    return render_template("scorecard.html")
