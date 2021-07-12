@@ -28,6 +28,14 @@ Table: BowlerGameFrame (a potential approach)
    IsStrike bool
    IsSpare bool
 
+**Later, if you want to work on above as MVP first**
+Table: BowlerGameFramePinDown
+   BowlerGameFrame_id : foreign key to bowler game frame
+   Pin Number : 1-10
+
+Insert N number of records for the corresponding pins knocked down
+
+
 When calculating total score and displaying on UX:
 foreach through the game frames and display UX based on Frame Number + Ball Number
 
