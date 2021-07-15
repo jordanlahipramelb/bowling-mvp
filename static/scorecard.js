@@ -1,5 +1,5 @@
 const clearScoresBtn = document.querySelector('#clear');
-const scorecardForm = document.querySelector('.scorecard');
+const scorecardForm = document.querySelector('#scorecard');
 const maxScore = document.querySelector('#max-score');
 let balls = document.querySelectorAll('.ball');
 let scores = document.querySelectorAll('.score');
