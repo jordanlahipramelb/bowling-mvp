@@ -1,3 +1,5 @@
+console.log('is this thing on?');
+
 const clearScoresBtn = document.querySelector('#clear');
 const scorecardForm = document.querySelector('#scorecard');
 const maxScore = document.querySelector('#max-score');
@@ -5,6 +7,10 @@ let balls = document.querySelectorAll('.ball');
 let scores = document.querySelectorAll('.score');
 
 clearScoresBtn.addEventListener('click', clearScores);
+
+balls.forEach((ball) => {
+  ball.addEventListener('change', calculateScores);
+});
 
 // Clear input value fields
 function clearScores() {
@@ -18,7 +24,7 @@ function clearScores() {
 }
 
 // Calculates the frames if the fields are changed
-function calculate() {
+function calculateScores() {
   let nextBall = '';
   let followingNextBall = '';
   let totalScore = 0;
