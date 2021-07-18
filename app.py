@@ -5,7 +5,7 @@ from sqlalchemy.exc import IntegrityError
 import os
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "postgresql:///bowling_scorecard_db")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "postgresql:///bowling_db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = True
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "bowlingrocks")
@@ -21,5 +21,7 @@ toolbar = DebugToolbarExtension(app)
 @app.route("/scorecard")
 def show_scorecard():
     """Displays scorecard."""
+
+    
 
     return render_template("scorecard.html")

@@ -66,8 +66,8 @@ class Scorecard(db.Model):
     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
     date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     location = db.Column(db.Text, nullable=False)
-    frame_number = db.Column(db.Text, default='0')
-    ball_number = db.Column(db.Text, default='0')
-    frame_score = db.Column(db.Text, default='0')
-    total_score = db.Column(db.Text, unllable=False, default='0')
+    frame_number = db.Column(db.Text)
+    ball_number = db.Column(db.Text)
+    frame_score = db.Column(db.Text)
+    total_score = db.Column(db.Text, nullable=False)
 
