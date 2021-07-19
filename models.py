@@ -29,14 +29,22 @@ class Bowler(db.Model):
 
     # start_register
     @classmethod
-    def register(cls, username, pwd):
+    def register(cls, first_name, last_name, username, pwd, email, image_url):
         """Register user w/hashed password & return user."""
 
-        hashed = bcrypt.generate_password_hash(pwd)
+        hashed_utf8 = bcrypt.generate_password_hash(pwd).decode("utf8")
 
-        hashed_utf8 = hashed.decode("utf8")
+        bowler = Bowler(
+            first_name=first_name,
+            last_name=last_name,
+            username=username,
+            pwd=hashed_utf8,
+            email=email,
+            image_url=image_url
+        )
 
-        return cls(username=username, password=hashed_utf8)
+        db.session.add(bowler)
+        return bowler
 
     # start_authenticate
     @classmethod
@@ -47,7 +55,7 @@ class Bowler(db.Model):
         """
 
         # searches for the user
-        user = Bowler.query.filter_by(username=username).first()
+        bowler = cls.query.filter_by(username=username).first()
 
         if user and bcrypt.check_password_hash(user.password, pwd):
             return user
@@ -64,10 +72,44 @@ class Scorecard(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
-    date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    date = db.Column(db.DateTime, nullable=False,
+                     default=datetime.datetime.now)
     location = db.Column(db.Text, nullable=False)
-    frame_number = db.Column(db.Text)
-    ball_number = db.Column(db.Text)
-    frame_score = db.Column(db.Text)
+
+    frame1_1_pins = db.Column(db.Text)
+    frame1_2_pins = db.Column(db.Text)
+    frame1_score = db.Column(db.Text)
+    frame2_1_pins = db.Column(db.Text)
+    frame2_2_pins = db.Column(db.Text)
+    frame2_score = db.Column(db.Text)
+    frame3_1_pins = db.Column(db.Text)
+    frame3_2_pins = db.Column(db.Text)
+    frame3_score = db.Column(db.Text)
+    frame4_1_pins = db.Column(db.Text)
+    frame4_2_pins = db.Column(db.Text)
+    frame4_score = db.Column(db.Text)
+    frame5_1_pins = db.Column(db.Text)
+    frame5_2_pins = db.Column(db.Text)
+    frame5_score = db.Column(db.Text)
+    frame6_1_pins = db.Column(db.Text)
+    frame6_2_pins = db.Column(db.Text)
+    frame6_score = db.Column(db.Text)
+    frame7_1_pins = db.Column(db.Text)
+    frame7_2_pins = db.Column(db.Text)
+    frame7_score = db.Column(db.Text)
+    frame8_1_pins = db.Column(db.Text)
+    frame8_2_pins = db.Column(db.Text)
+    frame8_score = db.Column(db.Text)
+    frame9_1_pins = db.Column(db.Text)
+    frame9_2_pins = db.Column(db.Text)
+    frame9_score = db.Column(db.Text)
+    frame10_1_pins = db.Column(db.Text)
+    frame10_2_pins = db.Column(db.Text)
+    frame10_3_pins = db.Column(db.Text)
+    frame10_score = db.Column(db.Text)
     total_score = db.Column(db.Text, nullable=False)
 
+    # frame_number = db.Column(db.Text)
+    # ball_number = db.Column(db.Text)
+    # frame_score = db.Column(db.Text)
+    # total_score = db.Column(db.Text, nullable=False)
