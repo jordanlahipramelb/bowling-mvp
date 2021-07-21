@@ -1,20 +1,5 @@
-.scorecard-table {
-  margin: 0 auto;
-  width: 80%;
-  font-size: 12px;
-  font-family: Arial;
-  border: 1px solid;
-  text-align: center;
-  table-layout: fixed;
-}
-
-.scorecard-table th {
-  background-color: rgb(59, 59, 59);
-  color: rgb(255, 255, 255);
-  height: 30px;
-}
-
-.scorecard-table td {
-  height: 30px;
-  background: rgb(214, 214, 214);
+input.score {
+  border-style: hidden;
+  background-color: transparent;
+  color: white;
 }

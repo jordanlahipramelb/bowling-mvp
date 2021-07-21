@@ -1,6 +1,16 @@
 from flask import Flask, render_template, redirect, session, flash, g, request
 from flask_debugtoolbar import DebugToolbarExtension
-from models import connect_db, db, Scorecard
+from models import (
+    connect_db,
+    db,
+    Bowler,
+    Team,
+    BowlerTeam,
+    League,
+    TeamLeague,
+    Match,
+    Scorecard,
+)
 
 from forms import BowlerAddForm, LoginForm, BowlerEditForm
 from sqlalchemy.exc import IntegrityError
@@ -71,7 +81,7 @@ def register():
 
     if form.validate_on_submit():
         try:
-            bowler = Bowler.signup(
+            bowler = Bowler.register(
                 username=form.username.data,
                 password=form.password.data,
                 first_name=form.first_name.data,
@@ -126,44 +136,51 @@ def logout():
 # *************************************************************
 # *************************************************************
 # *************************************************************
-@app.route("/scorecard")
-def track_scorecard():
+@app.route("/scorecard", methods=["GET"])
+def display_scorecard():
     """Displays scorecard."""
 
-    f1b1 = request.form["f1b1"]
-    f1b2 = request.form["f1b2"]
-    f2b1 = request.form["f2b1"]
-    f2b2 = request.form["f2b2"]
-    f3b1 = request.form["f3b1"]
-    f3b2 = request.form["f3b2"]
-    f4b1 = request.form["f4b1"]
-    f4b2 = request.form["f4b2"]
-    f5b1 = request.form["f5b1"]
-    f5b2 = request.form["f5b2"]
-    f6b1 = request.form["f6b1"]
-    f6b2 = request.form["f6b2"]
-    f7b1 = request.form["f7b1"]
-    f7b2 = request.form["f7b2"]
-    f8b1 = request.form["f8b1"]
-    f8b2 = request.form["f8b2"]
-    f9b1 = request.form["f9b1"]
-    f9b2 = request.form["f9b2"]
-    f10b1 = request.form["f10b1"]
-    f10b2 = request.form["f10b2"]
-    f10b3 = request.form["f10b3"]
+    return render_template("scorecard.html")
 
-    f1_score = request.form["f1-score"]
-    f2_score = request.form["f2-score"]
-    f3_score = request.form["f3-score"]
-    f4_score = request.form["f4-score"]
-    f5_score = request.form["f5-score"]
-    f6_score = request.form["f6-score"]
-    f7_score = request.form["f7-score"]
-    f8_score = request.form["f8-score"]
-    f9_score = request.form["f9-score"]
-    f10_score = request.form["f10-score"]
 
-    total_score = request.form["total-score"]
+@app.route("/scorecard", methods=["POST"])
+def submit_scorecard():
+    """Submits scorecard."""
+
+    f1b1 = request.form.get("f1b1", 0)
+    f1b2 = request.form.get("f1b2", 0)
+    f2b1 = request.form.get("f2b1", 0)
+    f2b2 = request.form.get("f2b2", 0)
+    f3b1 = request.form.get("f3b1", 0)
+    f3b2 = request.form.get("f3b2", 0)
+    f4b1 = request.form.get("f4b1", 0)
+    f4b2 = request.form.get("f4b2", 0)
+    f5b1 = request.form.get("f5b1", 0)
+    f5b2 = request.form.get("f5b2", 0)
+    f6b1 = request.form.get("f6b1", 0)
+    f6b2 = request.form.get("f6b2", 0)
+    f7b1 = request.form.get("f7b1", 0)
+    f7b2 = request.form.get("f7b2", 0)
+    f8b1 = request.form.get("f8b1", 0)
+    f8b2 = request.form.get("f8b2", 0)
+    f9b1 = request.form.get("f9b1", 0)
+    f9b2 = request.form.get("f9b2", 0)
+    f10b1 = request.form.get("f10b1", 0)
+    f10b2 = request.form.get("f10b2", 0)
+    f10b3 = request.form.get("f10b3", 0)
+
+    f1_score = request.form.get("f1-score", 0)
+    f2_score = request.form.get("f2-score", 0)
+    f3_score = request.form.get("f3-score", 0)
+    f4_score = request.form.get("f4-score", 0)
+    f5_score = request.form.get("f5-score", 0)
+    f6_score = request.form.get("f6-score", 0)
+    f7_score = request.form.get("f7-score", 0)
+    f8_score = request.form.get("f8-score", 0)
+    f9_score = request.form.get("f9-score", 0)
+    f10_score = request.form.get("f10-score", 0)
+
+    total_score = request.form.get("total-score", 0)
 
     new_scorecard = Scorecard(
         frame1_1_pins=f1b1,
@@ -200,4 +217,7 @@ def track_scorecard():
         total_score=total_score,
     )
 
-    return render_template("scorecard.html")
+    db.session.add(new_scorecard)
+    db.session.commit()
+
+    return redirect("/scorecards")
