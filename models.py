@@ -31,16 +31,16 @@ class Bowler(db.Model):
 
     # start_register
     @classmethod
-    def register(cls, first_name, last_name, username, pwd, email, image_url):
-        """Register user w/hashed password & return user."""
+    def register(cls, first_name, last_name, username, password, email, image_url):
+        """Register bowler w/hashed password & return bowler."""
 
-        hashed_utf8 = bcrypt.generate_password_hash(pwd).decode("utf8")
+        hashed_utf8 = bcrypt.generate_password_hash(password).decode("utf8")
 
         bowler = Bowler(
             first_name=first_name,
             last_name=last_name,
             username=username,
-            pwd=hashed_utf8,
+            password=hashed_utf8,
             email=email,
             image_url=image_url,
         )
@@ -51,16 +51,16 @@ class Bowler(db.Model):
     # start_authenticate
     @classmethod
     def authenticate(cls, username, pwd):
-        """Validate that user exists & password is correct.
+        """Validate that bowler exists & password is correct.
 
-        Return user if valid; else return False.
+        Return bowler if valid; else return False.
         """
 
-        # searches for the user
+        # searches for the bowler
         bowler = cls.query.filter_by(username=username).first()
 
-        if user and bcrypt.check_password_hash(user.password, pwd):
-            return user
+        if bowler and bcrypt.check_password_hash(bowler.password, pwd):
+            return bowler
         else:
             return False
 

@@ -31,7 +31,7 @@ app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = True
 connect_db(app)
 db.create_all()
 
-# toolbar = DebugToolbarExtension(app)
+toolbar = DebugToolbarExtension(app)
 
 
 # ***************************************************
@@ -70,6 +70,13 @@ def do_logout():
 # *******************************************
 
 
+@app.route("/")
+def homepage():
+    """Redirect user to scorecard."""
+
+    return redirect("/scorecard")
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Handles bowler registration.
@@ -97,7 +104,7 @@ def register():
 
         do_login(bowler)
 
-        return redirect("/")
+        return redirect("/scorecard")
 
     else:
         return render_template("register.html", form=form)
@@ -123,7 +130,7 @@ def login():
     return render_template("login.html", form=form)
 
 
-@app.route("/logout", methods=["POST"])
+@app.route("/logout")
 def logout():
     """Handles bowler logout."""
 

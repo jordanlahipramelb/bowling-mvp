@@ -55,7 +55,7 @@
               <a class="nav-link" href="#">{{ g.bowler.username }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Logout</a>
+              <a class="nav-link" href="/logout">Logout</a>
             </li>
             {% endif %}
           </ul>
@@ -64,7 +64,7 @@
     </nav>
     <div class="container">
       {% for category, message in get_flashed_messages(with_categories=True) %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
+      <div class="alert alert-{{ category }} my-2">{{ message }}</div>
       {% endfor %} {% block content %} {% endblock %}
     </div>
     <script src="https://unpkg.com/jquery"></script>
