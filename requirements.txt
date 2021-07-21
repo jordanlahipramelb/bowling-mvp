@@ -6,6 +6,7 @@ Flask==2.0.1
 Flask-Bcrypt==0.7.1
 Flask-DebugToolbar==0.11.0
 Flask-SQLAlchemy==2.5.1
+Flask-WTF==0.15.1
 greenlet==1.1.0
 itsdangerous==2.0.1
 jedi==0.18.0
@@ -17,3 +18,4 @@ pycparser==2.20
 six==1.16.0
 SQLAlchemy==1.4.20
 Werkzeug==2.0.1
+WTForms==2.3.3

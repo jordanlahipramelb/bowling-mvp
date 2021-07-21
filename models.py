@@ -27,6 +27,8 @@ class Bowler(db.Model):
         default="/static/images/default-pic.jpg",
     )
 
+    teams = db.relationship("Team", secondary="bowlers_teams", backref="bowlers")
+
     # start_register
     @classmethod
     def register(cls, first_name, last_name, username, pwd, email, image_url):
@@ -40,7 +42,7 @@ class Bowler(db.Model):
             username=username,
             pwd=hashed_utf8,
             email=email,
-            image_url=image_url
+            image_url=image_url,
         )
 
         db.session.add(bowler)
@@ -64,7 +66,49 @@ class Bowler(db.Model):
 
     def __repr__(self):
         u = self
-        return f"<User id = {u.id}, first_name = {u.first_name}, last_name = {u.last_name}>"
+        return f"<Bowler id = {u.id}, first_name = {u.first_name}, last_name = {u.last_name}>"
+
+
+class Team(db.Model):
+    __tablename__ = "teams"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    team_name = db.Column(db.Text, nullable=False, unique=True)
+
+
+class BowlerTeam(db.Model):
+    __tablename__ = "bowlers_teams"
+
+    bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
+
+
+class League(db.Model):
+    __tablename__ = "leagues"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.Text, nullable=False)
+    date = db.Column(db.Text)
+    location = db.Column(db.Text)
+
+
+class TeamLeague(db.Model):
+    """Which teams are a part of which leagues."""
+
+    __tablename__ = "teams_leagues"
+
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
+    league_id = db.Column(db.Integer, db.ForeignKey("leagues.id"), primary_key=True)
+
+
+class Match(db.Model):
+    __tablename__ = "matches"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    league_id = db.Column(db.Integer, db.ForeignKey("leagues.id"))
+    date = db.Column(db.Text, nullable=False)
+    team_1_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
+    team_2_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
 
 
 class Scorecard(db.Model):
@@ -72,8 +116,7 @@ class Scorecard(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
-    date = db.Column(db.DateTime, nullable=False,
-                     default=datetime.datetime.now)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     location = db.Column(db.Text, nullable=False)
 
     frame1_1_pins = db.Column(db.Text)
