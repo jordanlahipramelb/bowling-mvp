@@ -1,16 +1,21 @@
-{% extends 'base.html' %} {% block title %}Registration{% end block %}
-
+{% extends 'base.html' %} {% block title %}Registration{% endblock %} {% block
+content %}
 <div class="row justify-content-md-center">
-  <div class="col-md-7 col-lg-5">
-    <h2 class="join-message">Join Bowler MVP today.</h2>
+  <div class="container mx-auto">
+    <h2 class="text-center m-4">Welcome Back!</h2>
     <form method="POST" id="bowler_form">
       {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
-      'hidden' %} {% for error in field.errors %}
-      <span class="text-danger">{{ error }}</span>
-      {% endfor %} {{ field(placeholder=field.label.text, class="form-control")
-      }} {% endfor %}
+      'hidden' %}
+      <div class="container my-3">
+        {{field.label(class="form-label")}}
+        <div>{{field(class="form-control")}}</div>
+      </div>
 
-      <button class="btn btn-primary btn-lg btn-block">Sign me up!</button>
+      {% for error in field.errors %}
+      <span class="text-danger">{{ error }}</span>
+      {% endfor %}{% endfor %}
+
+      <button class="btn btn-primary btn-block my-4">Login</button>
     </form>
   </div>
 </div>

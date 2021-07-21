@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session, flash
+from flask import Flask, render_template, redirect, session, flash, g, request
 from flask_debugtoolbar import DebugToolbarExtension
 from models import connect_db, db, Scorecard
 
@@ -15,13 +15,13 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = True
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "bowlingrocks")
-app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
+app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = True
 
 
 connect_db(app)
 db.create_all()
 
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 
 
 # ***************************************************
@@ -30,7 +30,7 @@ toolbar = DebugToolbarExtension(app)
 
 
 @app.before_request
-def add_user_to_g():
+def add_bowler_to_g():
     """If we're logged in, add curr bowler to Flask global."""
 
     if CURR_BOWLER_KEY in session:
@@ -110,7 +110,7 @@ def login():
 
         flash("Invalid username/password.", "danger")
 
-    return render_template("login.html")
+    return render_template("login.html", form=form)
 
 
 @app.route("/logout", methods=["POST"])
@@ -127,7 +127,7 @@ def logout():
 # *************************************************************
 # *************************************************************
 @app.route("/scorecard")
-def show_scorecard():
+def track_scorecard():
     """Displays scorecard."""
 
     f1b1 = request.form["f1b1"]
