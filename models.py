@@ -29,6 +29,9 @@ class Bowler(db.Model):
         default="/static/images/default-pic.jpg",
     )
 
+    scorecards = db.relationship(
+        "Scorecard", backref="bowler", cascade="all, delete-orphan"
+    )
     teams = db.relationship("Team", secondary="bowlers_teams", backref="bowlers")
 
     # start_register

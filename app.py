@@ -151,7 +151,7 @@ def list_bowlers():
 
     bowlers = Bowler.query.all()
 
-    return render_template("index.html", bowlers=bowlers)
+    return render_template("all_bowlers.html", bowlers=bowlers)
 
 
 @app.route("/bowlers/<int:bowler_id>")
@@ -213,6 +213,11 @@ def delete_bowler():
 @app.route("/bowlers/<int:bowler_id>/scorecards/new", methods=["GET"])
 def display_new_scorecard(bowler_id):
     """Displays scorecard."""
+
+    if not g.bowler:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
     bowler = Bowler.query.get_or_404(bowler_id)
     scorecards = Scorecard.query.all()
 
@@ -222,6 +227,10 @@ def display_new_scorecard(bowler_id):
 @app.route("/bowlers/<int:bowler_id>/scorecards/new", methods=["POST"])
 def submit_scorecard(bowler_id):
     """Submits scorecard."""
+
+    if not g.bowler:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
 
     bowler = Bowler.query.get_or_404(bowler_id)
     date = request.form["date"]
@@ -304,7 +313,23 @@ def submit_scorecard(bowler_id):
 
 @app.route("/scorecards/<int:scorecard_id>")
 def show_scorecard(scorecard_id):
-    """Displays bowler's scorecard."""
+    """Displays a scorecard."""
     scorecard = Scorecard.query.get_or_404(scorecard_id)
 
     return render_template("single_scorecard.html", scorecard=scorecard)
+
+
+@app.route("/scorecards/<int:scorecard_id>/delete", methods=["POST"])
+def delete_scorecard(scorecard_id):
+    """Delete a scorecard."""
+
+    if not g.bowler:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    scorecard = Scorecard.query.get(scorecard_id)
+
+    db.session.delete(scorecard)
+    db.session.commit()
+
+    return redirect(f"/bowlers/{g.bowler.id}")

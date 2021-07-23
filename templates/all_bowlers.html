@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Bowlers{% endblock %}
+
+{% block content%}
+        <h1>All Bowlers</h1>
+        <ul>
+            {% for bowler in bowlers %}
+            <li>
+                <a href="/bowlers/{{ bowler.id }}"
+                    >{{ bowler.first_name }} {{ bowler.last_name }}</a
+                >
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+{% endblock %}

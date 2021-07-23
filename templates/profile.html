@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block title %}{{ bowler.first_name }}'s Profile{%
+endblock %}
+
+<h1>{{bowler.first_name}} {{bowler.last_name}}</h1>
+
+<div>
+  <img src="{{ bowler.image_url }}" alt="user image" width="200px" />
+</div>
+{% if g.bowler %}
+<form>
+  <button formaction="/bowlers/{{ bowler.id }}/edit" formmethod="GET">
+    Edit Details
+  </button>
+  <button formaction="/bowlers/{{ bowler.id }}/delete" formmethod="POST">
+    Delete Your Profile
+  </button>
+</form>
+{% else %} {% endif %}
+<p>
+  <a href="/"><button>Back</button></a>
+</p>
+
+<div>
+  <h2></h2>
+  <ul>
+    {% for scorecard in bowler.scorecards %}
+    <li>
+      <a href="/scorecards/{{ scorecard.id }}"
+        >{{ scorecard.date }}: {{ scorecard.total_score }}</a
+      >
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
