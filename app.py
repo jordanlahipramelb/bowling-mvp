@@ -25,7 +25,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = True
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "bowlingrocks")
-app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = True
+app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 
 
 connect_db(app)
@@ -72,9 +72,9 @@ def do_logout():
 
 @app.route("/")
 def homepage():
-    """Redirect user to scorecard."""
+    """Redirect user to list of bowlers."""
 
-    return redirect("/scorecard")
+    return redirect("/bowlers")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -140,54 +140,126 @@ def logout():
     return redirect("/login")
 
 
-# *************************************************************
-# *************************************************************
-# *************************************************************
-@app.route("/scorecard", methods=["GET"])
-def display_scorecard():
+# *******************************************
+# ***** Bowler/User related routes **********
+# *******************************************
+
+
+@app.route("/bowlers")
+def list_bowlers():
+    """Show list of all bowlers."""
+
+    bowlers = Bowler.query.all()
+
+    return render_template("index.html", bowlers=bowlers)
+
+
+@app.route("/bowlers/<int:bowler_id>")
+def show_bowler_profile(bowler_id):
+    """Show bowler profile."""
+
+    bowler = Bowler.query.get_or_404(bowler_id)
+
+    scorecards = Scorecard.query.all()
+
+    return render_template("profile.html", bowler=bowler, scorecards=scorecards)
+
+
+@app.route("/bowlers/<int:bowler_id>/edit", methods=["GET", "POST"])
+def update_bowler_profile(bowler_id):
+    """Update current bowler profile."""
+
+    if not g.bowler:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    bowler = g.bowler
+    form = BowlerEditForm(obj=bowler)
+
+    if form.validate_on_submit():
+        if Bowler.authenticate(bowler.username, form.password.data):
+            bowler.username = form.username.data
+            bowler.first_name = form.first_name.data
+            bowler.last_name = form.last_name.data
+            bowler.email = form.email.data
+            bowler.image_url = form.image_url.data or "/static/images/default-pic.jpg"
+
+            db.session.commit()
+
+            return redirect(f"/bowlers/{bowler.id}")
+
+
+@app.route("/bowlers/delete", methods=["POST"])
+def delete_bowler():
+    """Delete bowler."""
+
+    if not g.bowler:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    do_logout()
+
+    db.session.delete(g.bowler)
+    db.session.commit()
+
+    return redirect("/register")
+
+
+# ****************************************************
+# ************** Scorecard Related *******************
+# ****************************************************
+
+
+@app.route("/bowlers/<int:bowler_id>/scorecards/new", methods=["GET"])
+def display_new_scorecard(bowler_id):
     """Displays scorecard."""
+    bowler = Bowler.query.get_or_404(bowler_id)
+    scorecards = Scorecard.query.all()
 
-    return render_template("scorecard.html")
+    return render_template("scorecard.html", bowler=bowler)
 
 
-@app.route("/scorecard", methods=["POST"])
-def submit_scorecard():
+@app.route("/bowlers/<int:bowler_id>/scorecards/new", methods=["POST"])
+def submit_scorecard(bowler_id):
     """Submits scorecard."""
 
-    f1b1 = request.form.get("f1b1", 0)
-    f1b2 = request.form.get("f1b2", 0)
-    f2b1 = request.form.get("f2b1", 0)
-    f2b2 = request.form.get("f2b2", 0)
-    f3b1 = request.form.get("f3b1", 0)
-    f3b2 = request.form.get("f3b2", 0)
-    f4b1 = request.form.get("f4b1", 0)
-    f4b2 = request.form.get("f4b2", 0)
-    f5b1 = request.form.get("f5b1", 0)
-    f5b2 = request.form.get("f5b2", 0)
-    f6b1 = request.form.get("f6b1", 0)
-    f6b2 = request.form.get("f6b2", 0)
-    f7b1 = request.form.get("f7b1", 0)
-    f7b2 = request.form.get("f7b2", 0)
-    f8b1 = request.form.get("f8b1", 0)
-    f8b2 = request.form.get("f8b2", 0)
-    f9b1 = request.form.get("f9b1", 0)
-    f9b2 = request.form.get("f9b2", 0)
-    f10b1 = request.form.get("f10b1", 0)
-    f10b2 = request.form.get("f10b2", 0)
-    f10b3 = request.form.get("f10b3", 0)
+    bowler = Bowler.query.get_or_404(bowler_id)
+    date = request.form["date"]
+    location = request.form["location"]
+    f1b1 = request.form["f1b1"]
+    f1b2 = request.form["f1b2"]
+    f2b1 = request.form["f2b1"]
+    f2b2 = request.form["f2b2"]
+    f3b1 = request.form["f3b1"]
+    f3b2 = request.form["f3b2"]
+    f4b1 = request.form["f4b1"]
+    f4b2 = request.form["f4b2"]
+    f5b1 = request.form["f5b1"]
+    f5b2 = request.form["f5b2"]
+    f6b1 = request.form["f6b1"]
+    f6b2 = request.form["f6b2"]
+    f7b1 = request.form["f7b1"]
+    f7b2 = request.form["f7b2"]
+    f8b1 = request.form["f8b1"]
+    f8b2 = request.form["f8b2"]
+    f9b1 = request.form["f9b1"]
+    f9b2 = request.form["f9b2"]
+    f10b1 = request.form["f10b1"]
+    f10b2 = request.form["f10b2"]
+    f10b3 = request.form["f10b3"]
 
-    f1_score = request.form.get("f1-score", 0)
-    f2_score = request.form.get("f2-score", 0)
-    f3_score = request.form.get("f3-score", 0)
-    f4_score = request.form.get("f4-score", 0)
-    f5_score = request.form.get("f5-score", 0)
-    f6_score = request.form.get("f6-score", 0)
-    f7_score = request.form.get("f7-score", 0)
-    f8_score = request.form.get("f8-score", 0)
-    f9_score = request.form.get("f9-score", 0)
-    f10_score = request.form.get("f10-score", 0)
+    f1_score = request.form["f1-score"]
+    f2_score = request.form["f2-score"]
+    f3_score = request.form["f3-score"]
+    f4_score = request.form["f4-score"]
+    f5_score = request.form["f5-score"]
+    f6_score = request.form["f6-score"]
+    f7_score = request.form["f7-score"]
+    f8_score = request.form["f8-score"]
+    f9_score = request.form["f9-score"]
+    f10_score = request.form["f10-score"]
 
-    total_score = request.form.get("total-score", 0)
+    total_score = request.form["total-score"]
 
     new_scorecard = Scorecard(
         frame1_1_pins=f1b1,
@@ -227,4 +299,12 @@ def submit_scorecard():
     db.session.add(new_scorecard)
     db.session.commit()
 
-    return redirect("/scorecards")
+    return redirect(f"/bowlers/{bowler.id}")
+
+
+@app.route("/scorecards/<int:scorecard_id>")
+def show_scorecard(scorecard_id):
+    """Displays bowler's scorecard."""
+    scorecard = Scorecard.query.get_or_404(scorecard_id)
+
+    return render_template("single_scorecard.html", scorecard=scorecard)

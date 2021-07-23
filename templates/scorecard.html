@@ -6,6 +6,8 @@ block content %}
     <p class="text-center">Track your score below. Have fun!</p>
 
     <form id="scorecard">
+      <label>Enter Date: <input type="date" name="date" /></label>
+      <label>Location: <input type="text" name="location" /></label>
       <table class="table table-dark table-striped">
         <thead>
           <tr>
@@ -403,7 +405,9 @@ block content %}
         id="clear"
         value="Clear scores"
       />
-      <button class="btn btn-primary btn-block my-2">Save Game</button>
+      <button type="submit" class="btn btn-primary btn-block my-2">
+        Save Game
+      </button>
     </form>
   </div>
 </div>

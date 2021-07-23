@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-import datetime
+
 
 db = SQLAlchemy()
 
@@ -22,6 +22,8 @@ class Bowler(db.Model):
     username = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
+    city = db.Column(db.Text, nullable=False)
+    state = db.Column(db.Text, nullable=False)
     image_url = db.Column(
         db.Text,
         default="/static/images/default-pic.jpg",
@@ -50,7 +52,7 @@ class Bowler(db.Model):
 
     # start_authenticate
     @classmethod
-    def authenticate(cls, username, pwd):
+    def authenticate(cls, username, password):
         """Validate that bowler exists & password is correct.
 
         Return bowler if valid; else return False.
@@ -59,7 +61,7 @@ class Bowler(db.Model):
         # searches for the bowler
         bowler = cls.query.filter_by(username=username).first()
 
-        if bowler and bcrypt.check_password_hash(bowler.password, pwd):
+        if bowler and bcrypt.check_password_hash(bowler.password, password):
             return bowler
         else:
             return False
@@ -116,7 +118,7 @@ class Scorecard(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
-    date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    date = db.Column(db.Text, nullable=False)
     location = db.Column(db.Text, nullable=False)
 
     frame1_1_pins = db.Column(db.Text)
