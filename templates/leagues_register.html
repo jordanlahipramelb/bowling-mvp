@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block title %}League Registration{% endblock %} {%
+block content %}
+<div class="row justify-content-md-center">
+  <div class="container mx-auto">
+    <h2 class="text-center m-4">Create a League</h2>
+    <form method="POST" id="league_form">
+      {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+      'hidden' %}
+      <div class="container my-3">
+        {{field.label(class="form-label")}}
+        <div>{{field(class="form-control")}}</div>
+      </div>
+
+      {% for error in field.errors %}
+      <span class="text-danger">{{ error }}</span>
+      {% endfor %}{% endfor %}
+
+      <button class="btn btn-primary btn-block my-4">Create New League!</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

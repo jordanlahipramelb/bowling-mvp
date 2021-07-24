@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block title %}Update Profile{% endblock %} {% block
+content %}
+
+<div class="row justify-content-md-center">
+  <div class="container mx-auto">
+    <h2 class="text-center m-4">Edit Your Profile</h2>
+    <form method="POST" id="bowler_form">
+      {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+      'hidden' and field.name != 'password' %}
+
+      <div class="container my-3">
+        {{field.label(class="form-label")}}
+        <div>{{field(class="form-control")}}</div>
+      </div>
+
+      {% for error in field.errors %}
+      <span class="text-danger">{{ error }}</span>
+      {% endfor %} {% endfor %}
+
+      <p>To confirm changes, enter your password:</p>
+      {% if form.password.errors %} {% for error in form.password.errors %}
+      <span class="text-danger"> {{ error }} </span>
+      {% endfor %} {% endif %} {{ form.password(placeholder="Enter your password
+      to confirm", class="form-control") }}
+
+      <div class="edit-btn-area my-4">
+        <button class="btn btn-success">Make Changes</button>
+        <a href="/bowlers/{{ g.bowler.id }}" class="btn btn-outline-secondary"
+          >Cancel</a
+        >
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

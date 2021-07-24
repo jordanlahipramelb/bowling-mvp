@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField
+from wtforms import StringField, PasswordField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Email, Length, Optional
 
 states = [
@@ -67,7 +67,7 @@ class BowlerAddForm(FlaskForm):
     email = StringField("E-mail", validators=[DataRequired(), Email()])
     city = StringField("City", validators=[DataRequired()])
     state = SelectField(
-        "State", choices=[(st, st) for st in states], validators=[DataRequired()]
+        "State", choices=[(st) for st in states], validators=[DataRequired()]
     )
     image_url = StringField("(Optional) Image URL")
 
@@ -86,5 +86,9 @@ class BowlerEditForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])
     last_name = StringField("Last Name", validators=[DataRequired()])
     email = StringField("E-mail", validators=[DataRequired(), Email()])
+    city = StringField("City", validators=[DataRequired()])
+    state = SelectField(
+        "State", choices=[(st) for st in states], validators=[DataRequired()]
+    )
     image_url = StringField("(Optional) Image URL")
     password = PasswordField("Password", validators=[Length(min=6)])

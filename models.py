@@ -36,7 +36,9 @@ class Bowler(db.Model):
 
     # start_register
     @classmethod
-    def register(cls, first_name, last_name, username, password, email, image_url):
+    def register(
+        cls, first_name, last_name, username, password, email, city, state, image_url
+    ):
         """Register bowler w/hashed password & return bowler."""
 
         hashed_utf8 = bcrypt.generate_password_hash(password).decode("utf8")
@@ -47,6 +49,8 @@ class Bowler(db.Model):
             username=username,
             password=hashed_utf8,
             email=email,
+            city=city,
+            state=state,
             image_url=image_url,
         )
 

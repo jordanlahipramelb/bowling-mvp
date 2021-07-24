@@ -94,6 +94,8 @@ def register():
                 first_name=form.first_name.data,
                 last_name=form.last_name.data,
                 email=form.email.data,
+                city=form.city.data,
+                state=form.state.data,
                 image_url=form.image_url.data or Bowler.image_url.default.arg,
             )
             db.session.commit()
@@ -104,7 +106,7 @@ def register():
 
         do_login(bowler)
 
-        return redirect("/scorecard")
+        return redirect("/")
 
     else:
         return render_template("register.html", form=form)
@@ -182,11 +184,17 @@ def update_bowler_profile(bowler_id):
             bowler.first_name = form.first_name.data
             bowler.last_name = form.last_name.data
             bowler.email = form.email.data
+            bowler.city = form.city.data
+            bowler.state = form.state.data
             bowler.image_url = form.image_url.data or "/static/images/default-pic.jpg"
 
             db.session.commit()
 
             return redirect(f"/bowlers/{bowler.id}")
+
+        flash("Invalid password! Try again.", "danger")
+
+    return render_template("profile_edit.html", form=form)
 
 
 @app.route("/bowlers/delete", methods=["POST"])
@@ -333,3 +341,45 @@ def delete_scorecard(scorecard_id):
     db.session.commit()
 
     return redirect(f"/bowlers/{g.bowler.id}")
+
+
+# ****************************************************
+# ************** Team Related *******************
+# ****************************************************
+
+
+@app.route("/teams")
+def list_teams():
+    """Display all teams."""
+
+    teams = Team.query.all()
+
+    return render_template("teams.html", teams=teams)
+
+
+@app.route("/teams/add", methods=["GET", "POST"])
+def create_team():
+    """Create a new team."""
+
+    return render_template("team_register.html")
+
+
+# ****************************************************
+# ************** League Related *******************
+# ****************************************************
+
+
+@app.route("/leagues")
+def list_leagues():
+    """Display all leagues."""
+
+    leagues = League.query.all()
+
+    return render_template("leagues.html", leagues=leagues)
+
+
+@app.route("/leagues/add", methods=["GET", "POST"])
+def create_league():
+    """Create a new league."""
+
+    return render_template("leagues_register.html")

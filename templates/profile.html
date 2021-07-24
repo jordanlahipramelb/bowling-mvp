@@ -1,24 +1,11 @@
 {% extends 'base.html' %} {% block title %}{{ bowler.first_name }}'s Profile{%
-endblock %}
+endblock %} {% block content %}
 
 <h1>{{bowler.first_name}} {{bowler.last_name}}</h1>
 
 <div>
-  <img src="{{ bowler.image_url }}" alt="user image" width="200px" />
+  <img src="{{ bowler.image_url }}" alt="user image" width="300px" />
 </div>
-{% if g.bowler %}
-<form>
-  <button formaction="/bowlers/{{ bowler.id }}/edit" formmethod="GET">
-    Edit Details
-  </button>
-  <button formaction="/bowlers/{{ bowler.id }}/delete" formmethod="POST">
-    Delete Your Profile
-  </button>
-</form>
-{% else %} {% endif %}
-<p>
-  <a href="/"><button>Back</button></a>
-</p>
 
 <div>
   <h2></h2>
