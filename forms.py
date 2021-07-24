@@ -1,5 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField, SelectField, DateField
+from wtforms import (
+    StringField,
+    PasswordField,
+    TextAreaField,
+    SelectField,
+    DateTimeField,
+)
 from wtforms.validators import DataRequired, Email, Length, Optional
 
 states = [
@@ -105,5 +111,5 @@ class LeagueAddEditForm(FlaskForm):
     """League Add Form"""
 
     name = StringField("Name", validators=[DataRequired()])
-    start_date = DateField("Start Date", validators=[DataRequired()])
-    end_date = DateField("End Date", validators=[DataRequired()])
+    start_date = DateTimeField("Start Date", validators=[DataRequired()])
+    end_date = DateTimeField("End Date", validators=[DataRequired()])

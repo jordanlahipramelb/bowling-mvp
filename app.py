@@ -12,7 +12,13 @@ from models import (
     Scorecard,
 )
 
-from forms import BowlerAddForm, LoginForm, BowlerEditForm
+from forms import (
+    BowlerAddForm,
+    LoginForm,
+    BowlerEditForm,
+    TeamAddEditForm,
+    LeagueAddEditForm,
+)
 from sqlalchemy.exc import IntegrityError
 import os
 
@@ -218,29 +224,29 @@ def delete_bowler():
 # ****************************************************
 
 
-@app.route("/bowlers/<int:bowler_id>/scorecards/new", methods=["GET"])
-def display_new_scorecard(bowler_id):
+@app.route("/scorecards/new", methods=["GET"])
+def display_new_scorecard():
     """Displays scorecard."""
 
     if not g.bowler:
-        flash("Access unauthorized.", "danger")
+        flash(
+            "Access unauthorized. Please login/register to track your game.", "danger"
+        )
         return redirect("/")
 
-    bowler = Bowler.query.get_or_404(bowler_id)
     scorecards = Scorecard.query.all()
 
-    return render_template("scorecard.html", bowler=bowler)
+    return render_template("scorecard.html")
 
 
-@app.route("/bowlers/<int:bowler_id>/scorecards/new", methods=["POST"])
-def submit_scorecard(bowler_id):
+@app.route("/scorecards/new", methods=["POST"])
+def submit_scorecard():
     """Submits scorecard."""
 
     if not g.bowler:
         flash("Access unauthorized.", "danger")
         return redirect("/")
 
-    bowler = Bowler.query.get_or_404(bowler_id)
     date = request.form["date"]
     location = request.form["location"]
     f1b1 = request.form["f1b1"]
@@ -357,7 +363,7 @@ def list_teams():
     return render_template("teams.html", teams=teams)
 
 
-@app.route("/teams/<int:team_id")
+@app.route("/teams/<int:team_id>")
 def show_teams(team_id):
     """Show names of bowlers on a team."""
 
@@ -371,19 +377,28 @@ def show_teams(team_id):
 def create_team():
     """Create a new team."""
 
+    if not g.bowler:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
     form = TeamAddEditForm()
 
     if form.validate_on_submit():
-        name = form.name.data
+        try:
+            team = Team.register(
+                name=form.name.data,
+            )
 
-        new_team = Team(name=name)
+            db.session.commit()
 
-        db.session.add(new_team)
-        db.session.commit()
+        except IntegrityError:
+            flash("Name already taken", "danger")
+            return render_template("teams_register.html", form=form)
+
         flash("Team Created!", "success")
         return redirect("/teams")
 
-    return render_template("team_register.html", form=form)
+    return render_template("teams_register.html", form=form)
 
 
 # ****************************************************
@@ -404,4 +419,28 @@ def list_leagues():
 def create_league():
     """Create a new league."""
 
-    return render_template("leagues_register.html")
+    if not g.bowler:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    form = LeagueAddEditForm()
+
+    if form.validate_on_submit():
+        try:
+            league = League.register(
+                name=form.name.data,
+                start_date=form.start_date.data,
+                end_date=form.end_date.data,
+                location=form.location.data,
+            )
+
+            db.session.commit()
+
+        except IntegrityError:
+            flash("Name already taken", "danger")
+            return render_template("leagues_register.html", form=form)
+
+        flash("League Created!", "success")
+        return redirect("/teams")
+
+    return render_template("leagues_register.html", form=form)

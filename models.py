@@ -82,7 +82,18 @@ class Team(db.Model):
     __tablename__ = "teams"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    team_name = db.Column(db.Text, nullable=False, unique=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
+
+    @classmethod
+    def register(cls, name):
+        """Register a league."""
+
+        team = Team(
+            name=name,
+        )
+
+        db.session.add(team)
+        return team
 
 
 class BowlerTeam(db.Model):
@@ -96,7 +107,7 @@ class League(db.Model):
     __tablename__ = "leagues"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.Text, nullable=False)
+    name = db.Column(db.Text, nullable=False, unique=True)
     start_date = db.Column(db.Text, nullable=False)
     end_date = db.Column(db.Text, nullable=False)
     location = db.Column(db.Text)
