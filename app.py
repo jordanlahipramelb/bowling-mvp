@@ -357,11 +357,33 @@ def list_teams():
     return render_template("teams.html", teams=teams)
 
 
+@app.route("/teams/<int:team_id")
+def show_teams(team_id):
+    """Show names of bowlers on a team."""
+
+    team = Team.query.get_or_404(team_id)
+    bowlers = Bowler.query.all()
+
+    return render_template("team.html", team=team, bowlers=bowlers)
+
+
 @app.route("/teams/add", methods=["GET", "POST"])
 def create_team():
     """Create a new team."""
 
-    return render_template("team_register.html")
+    form = TeamAddEditForm()
+
+    if form.validate_on_submit():
+        name = form.name.data
+
+        new_team = Team(name=name)
+
+        db.session.add(new_team)
+        db.session.commit()
+        flash("Team Created!", "success")
+        return redirect("/teams")
+
+    return render_template("team_register.html", form=form)
 
 
 # ****************************************************

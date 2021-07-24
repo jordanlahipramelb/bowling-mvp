@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField, SelectField
+from wtforms import StringField, PasswordField, TextAreaField, SelectField, DateField
 from wtforms.validators import DataRequired, Email, Length, Optional
 
 states = [
@@ -91,4 +91,19 @@ class BowlerEditForm(FlaskForm):
         "State", choices=[(st) for st in states], validators=[DataRequired()]
     )
     image_url = StringField("(Optional) Image URL")
+    bio = TextAreaField("(Optional) Tell us more about yourself")
     password = PasswordField("Password", validators=[Length(min=6)])
+
+
+class TeamAddEditForm(FlaskForm):
+    """Team Add Form"""
+
+    name = StringField("Team Name", validators=[DataRequired()])
+
+
+class LeagueAddEditForm(FlaskForm):
+    """League Add Form"""
+
+    name = StringField("Name", validators=[DataRequired()])
+    start_date = DateField("Start Date", validators=[DataRequired()])
+    end_date = DateField("End Date", validators=[DataRequired()])
