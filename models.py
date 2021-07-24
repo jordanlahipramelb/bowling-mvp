@@ -97,8 +97,23 @@ class League(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False)
-    date = db.Column(db.Text)
+    start_date = db.Column(db.Text, nullable=False)
+    end_date = db.Column(db.Text, nullable=False)
     location = db.Column(db.Text)
+
+    @classmethod
+    def register(cls, name, start_date, end_date, location):
+        """Register a league."""
+
+        league = League(
+            name=name,
+            start_date=start_date,
+            end_date=end_date,
+            location=location,
+        )
+
+        db.session.add(league)
+        return league
 
 
 class TeamLeague(db.Model):
