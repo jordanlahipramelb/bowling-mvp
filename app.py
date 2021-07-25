@@ -364,13 +364,13 @@ def list_teams():
 
 
 @app.route("/teams/<int:team_id>")
-def show_teams(team_id):
+def show_teammates(team_id):
     """Show names of bowlers on a team."""
 
     team = Team.query.get_or_404(team_id)
     bowlers = Bowler.query.all()
 
-    return render_template("team.html", team=team, bowlers=bowlers)
+    return render_template("teammates.html", team=team, bowlers=bowlers)
 
 
 @app.route("/teams/add", methods=["GET", "POST"])
@@ -401,6 +401,31 @@ def create_team():
     return render_template("teams_register.html", form=form)
 
 
+@app.route("/teams/<int:team_id>/add-bowler", methods=["GET", "POST"])
+def add_bowler_to_team(team_id):
+    """Add bowler to a team."""
+
+    team = Team.query.get_or_404(team_id)
+    form = NewBowlerForTeamForm()
+
+    curr_on_team = [bowler.id for bowler in team.bowlers]
+    form.bowler.choices = (
+        db.session.query(Bowler.id, Bowler.first_name, Bowler.last_name)
+        .filter(Bowler.id.notin_(curr_on_team))
+        .all()
+    )
+
+    if form.validate_on_submit():
+
+        bowler_team = BowlerTeam(bowler_id=form.bowler.data, team_id=team_id)
+        db.session.add(bowler_team)
+        db.session.commit()
+
+        return redirect(f"/teams/{team_id}")
+
+    return render_template("add_bowler_to_team.html", team=team, form=form)
+
+
 # ****************************************************
 # ************** League Related *******************
 # ****************************************************
@@ -413,6 +438,16 @@ def list_leagues():
     leagues = League.query.all()
 
     return render_template("leagues.html", leagues=leagues)
+
+
+@app.route("/leagues/<int:league_id>")
+def show_teammates(league_id):
+    """Show names of bowlers on a team."""
+
+    league = League.query.get_or_404(league_id)
+    teams = Team.query.all()
+
+    return render_template("league_teams.html", league=league, teams=teams)
 
 
 @app.route("/leagues/add", methods=["GET", "POST"])
@@ -444,3 +479,28 @@ def create_league():
         return redirect("/teams")
 
     return render_template("leagues_register.html", form=form)
+
+
+@app.route("/leagues/<int:league_id>/add-team", methods=["GET", "POST"])
+def add_team_to_league(league_id):
+    """Add team to a league."""
+
+    league = Team.query.get_or_404(league_id)
+    form = NewTeamForLeagueForm()
+
+    curr_on_league = [team.id for team in league.teams]
+    form.team.choices = (
+        db.session.query(Team.id, Team.name)
+        .filter(Team.id.notin_(curr_on_league))
+        .all()
+    )
+
+    if form.validate_on_submit():
+
+        team_league = TeamLeague(team_id=form.team.data, league_id=league_id)
+        db.session.add(team_league)
+        db.session.commit()
+
+        return redirect(f"/leagues/{league_id}")
+
+    return render_template("add_team_to_league.html", league=league, form=form)

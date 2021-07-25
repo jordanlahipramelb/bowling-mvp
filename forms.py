@@ -4,9 +4,10 @@ from wtforms import (
     PasswordField,
     TextAreaField,
     SelectField,
-    DateTimeField,
+    DateField,
 )
-from wtforms.validators import DataRequired, Email, Length, Optional
+from wtforms.validators import DataRequired, Email, Length
+from datetime import date
 
 states = [
     "AL",
@@ -63,6 +64,13 @@ states = [
 ]
 
 
+class LoginForm(FlaskForm):
+    """Login form."""
+
+    username = StringField("Username", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[Length(min=6)])
+
+
 class BowlerAddForm(FlaskForm):
     """Form for adding users."""
 
@@ -76,13 +84,6 @@ class BowlerAddForm(FlaskForm):
         "State", choices=[(st) for st in states], validators=[DataRequired()]
     )
     image_url = StringField("(Optional) Image URL")
-
-
-class LoginForm(FlaskForm):
-    """Login form."""
-
-    username = StringField("Username", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[Length(min=6)])
 
 
 class BowlerEditForm(FlaskForm):
@@ -104,12 +105,39 @@ class BowlerEditForm(FlaskForm):
 class TeamAddEditForm(FlaskForm):
     """Team Add Form"""
 
-    name = StringField("Team Name", validators=[DataRequired()])
+    name = StringField(
+        "Team Name",
+        validators=[DataRequired(message="Please enter the name of your team.")],
+    )
 
 
 class LeagueAddEditForm(FlaskForm):
     """League Add Form"""
 
-    name = StringField("Name", validators=[DataRequired()])
-    start_date = DateTimeField("Start Date", validators=[DataRequired()])
-    end_date = DateTimeField("End Date", validators=[DataRequired()])
+    name = StringField(
+        "Name",
+        validators=[DataRequired(message="Please enter the name of your league.")],
+    )
+    start_date = DateField(
+        "Start date",
+        default=date.today(),
+        format="%m/%d/%Y",
+        validators=[DataRequired(message="Please enter the start date")],
+    )
+    end_date = DateField(
+        "End date",
+        validators=[DataRequired(message="Please enter the end date.")],
+        format="%m/%d/%Y",
+    )
+
+
+class NewBowlerForTeamForm(FlaskForm):
+    """Form for adding a song to playlist."""
+
+    song = SelectField("Bowler To Add", coerce=int)
+
+
+class NewTeamForLeagueForm(FlaskForm):
+    """Form for adding a song to playlist."""
+
+    song = SelectField("Team To Add", coerce=int)

@@ -84,6 +84,8 @@ class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False, unique=True)
 
+    leagues = db.relationship("League", secondary="teams_leagues", backref="teams")
+
     @classmethod
     def register(cls, name):
         """Register a league."""

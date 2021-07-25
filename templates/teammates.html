@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>{{ team.name }}</h1>
+
+<div>
+  <ul>
+    {% for bowler in team.bowlers %}
+    <a href="/bowlers/{{ bowler.id }}"><li>{{ bowler.first_name }}</li></a>
+    {% endfor%}
+  </ul>
+</div>
+
+<p>
+  <a class="btn btn-primary" href=""> Add Bowler To Team </a>
+</p>
+
+{% endblock %}
