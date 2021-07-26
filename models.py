@@ -13,6 +13,46 @@ def connect_db(app):
     db.init_app(app)
 
 
+class League(db.Model):
+    __tablename__ = "leagues"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
+    start_date = db.Column(db.Text, nullable=False)
+    end_date = db.Column(db.Text, nullable=False)
+    location = db.Column(db.Text)
+
+    @classmethod
+    def register(cls, name, start_date, end_date, location):
+        """Register a league."""
+
+        league = League(
+            name=name,
+            start_date=start_date,
+            end_date=end_date,
+            location=location,
+        )
+
+        db.session.add(league)
+        return league
+
+
+class TeamLeague(db.Model):
+    """Which teams are a part of which leagues."""
+
+    __tablename__ = "teams_leagues"
+
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
+    league_id = db.Column(db.Integer, db.ForeignKey("leagues.id"), primary_key=True)
+
+
+class BowlerTeam(db.Model):
+    __tablename__ = "bowlers_teams"
+
+    bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
+
+
 class Bowler(db.Model):
     __tablename__ = "bowlers"
 
@@ -28,11 +68,6 @@ class Bowler(db.Model):
         db.Text,
         default="/static/images/default-pic.jpg",
     )
-
-    scorecards = db.relationship(
-        "Scorecard", backref="bowler", cascade="all, delete-orphan"
-    )
-    teams = db.relationship("Team", secondary="bowlers_teams", backref="bowlers")
 
     # start_register
     @classmethod
@@ -85,6 +120,7 @@ class Team(db.Model):
     name = db.Column(db.Text, nullable=False, unique=True)
 
     leagues = db.relationship("League", secondary="teams_leagues", backref="teams")
+    bowlers = db.relationship("Bowler", secondary="bowlers_teams", backref="teams")
 
     @classmethod
     def register(cls, name):
@@ -96,46 +132,6 @@ class Team(db.Model):
 
         db.session.add(team)
         return team
-
-
-class BowlerTeam(db.Model):
-    __tablename__ = "bowlers_teams"
-
-    bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
-    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
-
-
-class League(db.Model):
-    __tablename__ = "leagues"
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.Text, nullable=False, unique=True)
-    start_date = db.Column(db.Text, nullable=False)
-    end_date = db.Column(db.Text, nullable=False)
-    location = db.Column(db.Text)
-
-    @classmethod
-    def register(cls, name, start_date, end_date, location):
-        """Register a league."""
-
-        league = League(
-            name=name,
-            start_date=start_date,
-            end_date=end_date,
-            location=location,
-        )
-
-        db.session.add(league)
-        return league
-
-
-class TeamLeague(db.Model):
-    """Which teams are a part of which leagues."""
-
-    __tablename__ = "teams_leagues"
-
-    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
-    league_id = db.Column(db.Integer, db.ForeignKey("leagues.id"), primary_key=True)
 
 
 class Match(db.Model):
@@ -188,6 +184,8 @@ class Scorecard(db.Model):
     frame10_3_pins = db.Column(db.Text)
     frame10_score = db.Column(db.Text)
     total_score = db.Column(db.Text, nullable=False)
+
+    bowlers = db.relationship("Bowler", backref="scorecards")
 
     # frame_number = db.Column(db.Text)
     # ball_number = db.Column(db.Text)

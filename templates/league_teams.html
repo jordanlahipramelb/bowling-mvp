@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>{{ league.name }}</h1>
+
+<div>
+  <ul>
+    {% for team in league.teams %}
+    <a href="/teams/{{ teams.id }}"><li>{{ team.name }}</li></a>
+    {% endfor%}
+  </ul>
+</div>
+
+<p>
+  <a class="btn btn-primary" href="/leagues/{{ league.id }}/add-team">
+    Add Team!
+  </a>
+</p>
+
+{% endblock %}

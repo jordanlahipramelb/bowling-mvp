@@ -130,14 +130,19 @@ class LeagueAddEditForm(FlaskForm):
         format="%m/%d/%Y",
     )
 
+    location = StringField(
+        "Location",
+        validators=[DataRequired(message="Please enter the location of your league.")],
+    )
+
 
 class NewBowlerForTeamForm(FlaskForm):
     """Form for adding a song to playlist."""
 
-    song = SelectField("Bowler To Add", coerce=int)
+    bowler = SelectField("Bowler To Add", coerce=int)
 
 
 class NewTeamForLeagueForm(FlaskForm):
     """Form for adding a song to playlist."""
 
-    song = SelectField("Team To Add", coerce=int)
+    team = SelectField("Team To Add", coerce=int)

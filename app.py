@@ -18,6 +18,8 @@ from forms import (
     BowlerEditForm,
     TeamAddEditForm,
     LeagueAddEditForm,
+    NewTeamForLeagueForm,
+    NewBowlerForTeamForm,
 )
 from sqlalchemy.exc import IntegrityError
 import os
@@ -363,23 +365,13 @@ def list_teams():
     return render_template("teams.html", teams=teams)
 
 
-@app.route("/teams/<int:team_id>")
-def show_teammates(team_id):
-    """Show names of bowlers on a team."""
-
-    team = Team.query.get_or_404(team_id)
-    bowlers = Bowler.query.all()
-
-    return render_template("teammates.html", team=team, bowlers=bowlers)
-
-
 @app.route("/teams/add", methods=["GET", "POST"])
 def create_team():
     """Create a new team."""
 
     if not g.bowler:
-        flash("Access unauthorized.", "danger")
-        return redirect("/")
+        flash("Access unauthorized. Please login to add a new team.", "danger")
+        return redirect("/teams")
 
     form = TeamAddEditForm()
 
@@ -401,16 +393,30 @@ def create_team():
     return render_template("teams_register.html", form=form)
 
 
+@app.route("/teams/<int:team_id>")
+def show_teammates(team_id):
+    """Show names of bowlers on a team."""
+
+    team = Team.query.get_or_404(team_id)
+    bowlers = Bowler.query.all()
+
+    return render_template("teammates.html", team=team, bowlers=bowlers)
+
+
 @app.route("/teams/<int:team_id>/add-bowler", methods=["GET", "POST"])
 def add_bowler_to_team(team_id):
     """Add bowler to a team."""
+
+    if not g.bowler:
+        flash("Access unauthorized. Please login to add a new bowler.", "danger")
+        return redirect("/")
 
     team = Team.query.get_or_404(team_id)
     form = NewBowlerForTeamForm()
 
     curr_on_team = [bowler.id for bowler in team.bowlers]
     form.bowler.choices = (
-        db.session.query(Bowler.id, Bowler.first_name, Bowler.last_name)
+        db.session.query(Bowler.id, Bowler.first_name)
         .filter(Bowler.id.notin_(curr_on_team))
         .all()
     )
@@ -441,8 +447,8 @@ def list_leagues():
 
 
 @app.route("/leagues/<int:league_id>")
-def show_teammates(league_id):
-    """Show names of bowlers on a team."""
+def show_teams_in_league(league_id):
+    """Show names of teams in a league."""
 
     league = League.query.get_or_404(league_id)
     teams = Team.query.all()
@@ -455,8 +461,8 @@ def create_league():
     """Create a new league."""
 
     if not g.bowler:
-        flash("Access unauthorized.", "danger")
-        return redirect("/")
+        flash("Access unauthorized. Please login to create a new league.", "danger")
+        return redirect("/leagues")
 
     form = LeagueAddEditForm()
 
@@ -476,7 +482,7 @@ def create_league():
             return render_template("leagues_register.html", form=form)
 
         flash("League Created!", "success")
-        return redirect("/teams")
+        return redirect("/leagues")
 
     return render_template("leagues_register.html", form=form)
 
@@ -485,7 +491,11 @@ def create_league():
 def add_team_to_league(league_id):
     """Add team to a league."""
 
-    league = Team.query.get_or_404(league_id)
+    if not g.bowler:
+        flash("Access unauthorized. Please login to create a new league.", "danger")
+        return redirect("/")
+
+    league = League.query.get_or_404(league_id)
     form = NewTeamForLeagueForm()
 
     curr_on_league = [team.id for team in league.teams]
