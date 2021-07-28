@@ -80,9 +80,9 @@ def do_logout():
 
 @app.route("/")
 def homepage():
-    """Redirect user to list of bowlers."""
+    """Welcome Page."""
 
-    return redirect("/bowlers")
+    return render_template("welcome.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -226,8 +226,8 @@ def delete_bowler():
 # ****************************************************
 
 
-@app.route("/scorecards/new", methods=["GET"])
-def display_new_scorecard():
+@app.route("/scorecards/<int:bowler_id>/new", methods=["GET"])
+def display_new_scorecard(bowler_id):
     """Displays scorecard."""
 
     if not g.bowler:
@@ -241,8 +241,8 @@ def display_new_scorecard():
     return render_template("scorecard.html")
 
 
-@app.route("/scorecards/new", methods=["POST"])
-def submit_scorecard():
+@app.route("/scorecards/<int:bowler_id>/new", methods=["POST"])
+def submit_scorecard(bowler_id):
     """Submits scorecard."""
 
     if not g.bowler:
@@ -287,6 +287,8 @@ def submit_scorecard():
     total_score = request.form["total-score"]
 
     new_scorecard = Scorecard(
+        date=date,
+        location=location,
         frame1_1_pins=f1b1,
         frame1_2_pins=f1b2,
         frame1_score=f1_score,
@@ -319,12 +321,13 @@ def submit_scorecard():
         frame10_3_pins=f10b3,
         frame10_score=f1_score,
         total_score=total_score,
+        bowler_id=g.bowler.id,
     )
 
     db.session.add(new_scorecard)
     db.session.commit()
 
-    return redirect(f"/bowlers/{bowler.id}")
+    return redirect(f"/bowlers/{g.bowler.id}")
 
 
 @app.route("/scorecards/<int:scorecard_id>")
@@ -361,6 +364,7 @@ def list_teams():
     """Display all teams."""
 
     teams = Team.query.all()
+    bowlers
 
     return render_template("teams.html", teams=teams)
 

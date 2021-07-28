@@ -81,7 +81,7 @@ class BowlerAddForm(FlaskForm):
     email = StringField("E-mail", validators=[DataRequired(), Email()])
     city = StringField("City", validators=[DataRequired()])
     state = SelectField(
-        "State", choices=[(st) for st in states], validators=[DataRequired()]
+        "State", choices=[(st, st) for st in states], validators=[DataRequired()]
     )
     image_url = StringField("(Optional) Image URL")
 

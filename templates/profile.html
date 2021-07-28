@@ -1,23 +1,48 @@
 {% extends 'base.html' %} {% block title %}{{ bowler.first_name }}'s Profile{%
 endblock %} {% block content %}
 
-<h1>{{bowler.first_name}} {{bowler.last_name}}</h1>
-
-<div>
-  <img src="{{ bowler.image_url }}" alt="user image" width="300px" />
+<div class="row banner">
+  <div class="col align-items-center">
+    <h3>{{bowler.first_name}} {{bowler.last_name}}</h3>
+    <img src="{{ bowler.image_url }}" alt="user image" id="profile-avatar" />
+    <p>{{bowler.city}}, {{bowler.state}}</p>
+  </div>
 </div>
-
-<div>
-  <h2></h2>
-  <ul>
-    {% for scorecard in bowler.scorecards %}
-    <li>
-      <a href="/scorecards/{{ scorecard.id }}"
-        >{{ scorecard.date }}: {{ scorecard.total_score }}</a
-      >
-    </li>
-    {% endfor %}
-  </ul>
+<div class="row m-3">
+  <div class="col-sm-6">
+    <h3 class="text-center">Scorecards</h3>
+    {% if g.bowler.scorecards %}
+    <table class="table mx-1">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for scorecard in bowler.scorecards %}
+        <tr>
+          <td>{{ scorecard.date }}</td>
+          <td>{{ scorecard.total_score }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="text-center">No games saved.</p>
+    {% endif %}
+  </div>
+  <div class="col-sm-6">
+    <h3 class="text-center">Leagues</h3>
+    <ul>
+      {% if bowler.teams.leagues %} {% for league in bowler.teams.leagues %}
+      <li>
+        <a href="/leagues/{{ league.id }}">{{ league.name }}</a>
+      </li>
+      {% endfor %} {% else %}
+      <p class="text-center">Not present in any leagues.</p>
+      {% endif %}
+    </ul>
+  </div>
 </div>
-
 {% endblock %}

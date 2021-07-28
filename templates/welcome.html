@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="masthead">
+  <div class="masthead-subheading">Welcome To Bowling MVP</div>
+  <div class="masthead-heading text-uppercase">Let's Roll!</div>
+  {% if g.bowler %}<a
+    class="btn btn-lg text-uppercase"
+    href="/scorecards/{{g.bowler.id}}/new"
+    >Track Your Game</a
+  >{% else %}
+  <a class="btn btn-lg text-uppercase" href="/login">Login</a>
+  <a class="btn btn-lg text-uppercase" href="/register">Register</a>
+  {% endif %}
+</div>
+
+{% endblock %}

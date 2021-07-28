@@ -1,21 +1,30 @@
-{% extends 'base.html' %}
-{% block title %}Teams{% endblock %}
+{% extends 'base.html' %} {% block title %}Teams{% endblock %} {% block
+content%}
 
-{% block content%}
-        <h1>Teams</h1>
-        <ul>
-            {% for team in teams %}
-            <li>
-                <a href="/teams/{{ team.id }}"
-                    >{{ team.name }}</a
-                >
-            </li>
-            {% endfor %}
-        </ul>
-        <div>
-            <a href="/teams/add"
-                    >Add Team</a
-                >
+<div class="row banner">
+  <div class="col align-items-center">
+    <h1>Teams</h1>
+    <a href="/teams/add" class="btn btn-lg text-uppercase">Add Team</a>
+  </div>
+</div>
+<div class="list-group row m-3">
+  <div class="col-sm-12">
+    <div class="d-flex w-100 justify-content-between">
+      {% for team in teams %}
+
+      <a
+        href="/teams/{{ team.id }}"
+        class="list-group-item list-group-item-action"
+      >
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ team.name }}</h5>
         </div>
-    </body>
+        <p class="mb-1">Some placeholder content in a paragraph.</p>
+      </a>
+
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 {% endblock %}

@@ -1,21 +1,26 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Team {{ team.name }}</h1>
-
-<div>
-  <ul>
-    {% for bowler in team.bowlers %}
-    <a href="/bowlers/{{ bowler.id }}"
-      ><li>{{ bowler.first_name }} {{ bowler.last_name }}</li></a
+<div class="row banner">
+  <div class="col align-items-center">
+    <h1>Team {{ team.name }}</h1>
+    <a class="btn btn-lg text-uppercase" href="/teams/{{ team.id }}/add-bowler"
+      >Add Bowler To Team</a
     >
-    {% endfor%}
-  </ul>
+  </div>
 </div>
 
-<p>
-  <a class="btn btn-primary" href="/teams/{{ team.id }}/add-bowler">
-    Add Bowler To Team
-  </a>
-</p>
+<div class="list-group row m-3">
+  <div class="col-sm-12">
+    <div class="d-flex w-100 justify-content-between">
+      {% for bowler in team.bowlers %}
+      <a
+        href="/bowlers/{{ bowler.id }}"
+        class="list-group-item list-group-item-action"
+        ><h5>{{ bowler.first_name }} {{ bowler.last_name }}</h5></a
+      >
+      {% endfor%}
+    </div>
+  </div>
+</div>
 
 {% endblock %}

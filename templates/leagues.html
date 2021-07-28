@@ -1,21 +1,26 @@
-{% extends 'base.html' %}
-{% block title %}Leagues{% endblock %}
+{% extends 'base.html' %} {% block title %}Leagues{% endblock %} {% block
+content%}
 
-{% block content%}
-        <h1>Leagues</h1>
-        <ul>
-            {% for league in leagues %}
-            <li>
-                <a href="/leagues/{{ league.id }}"
-                    >{{ league.name }}</a
-                >
-            </li>
-            {% endfor %}
-        </ul>
-        <div>
-            <a href="/leagues/add"
-                    >Add League</a
-                >
-        </div>
-    </body>
+<div class="row banner">
+  <div class="col align-items-center">
+    <h1>Leagues</h1>
+    <a class="btn btn-lg text-uppercase" href="/leagues/add">Add</a>
+  </div>
+</div>
+
+<div class="list-group row m-3">
+  <div class="col-sm-12">
+    <div class="d-flex w-100 justify-content-between">
+      {% for league in leagues %}
+
+      <a
+        href="/leagues/{{ league.id }}"
+        class="list-group-item list-group-item-action"
+        >{{ league.name }}</a
+      >
+
+      {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}

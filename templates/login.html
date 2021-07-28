@@ -14,8 +14,9 @@ content %}
       {% for error in field.errors %}
       <span class="text-danger">{{ error }}</span>
       {% endfor %}{% endfor %}
-
-      <button class="btn btn-primary btn-block my-4">Login</button>
+      <div class="container">
+        <input type="submit" value="Login" class="btn btn-warning btn-block" />
+      </div>
     </form>
   </div>
 </div>

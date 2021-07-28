@@ -53,6 +53,15 @@ class BowlerTeam(db.Model):
     team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
 
 
+# class BowlerScorecard(db.Model):
+#     __tablename__ = "bowlers_scorecards"
+
+#     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
+#     scorecard_id = db.Column(
+#         db.Integer, db.ForeignKey("scorecards.id"), primary_key=True
+#     )
+
+
 class Bowler(db.Model):
     __tablename__ = "bowlers"
 
@@ -67,6 +76,10 @@ class Bowler(db.Model):
     image_url = db.Column(
         db.Text,
         default="/static/images/default-pic.jpg",
+    )
+
+    scorecards = db.relationship(
+        "Scorecard", backref="bowler", cascade="all, delete-orphan"
     )
 
     # start_register
@@ -126,9 +139,7 @@ class Team(db.Model):
     def register(cls, name):
         """Register a league."""
 
-        team = Team(
-            name=name,
-        )
+        team = Team(name=name)
 
         db.session.add(team)
         return team
@@ -148,7 +159,6 @@ class Scorecard(db.Model):
     __tablename__ = "scorecards"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
     date = db.Column(db.Text, nullable=False)
     location = db.Column(db.Text, nullable=False)
 
@@ -184,8 +194,7 @@ class Scorecard(db.Model):
     frame10_3_pins = db.Column(db.Text)
     frame10_score = db.Column(db.Text)
     total_score = db.Column(db.Text, nullable=False)
-
-    bowlers = db.relationship("Bowler", backref="scorecards")
+    bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
 
     # frame_number = db.Column(db.Text)
     # ball_number = db.Column(db.Text)
