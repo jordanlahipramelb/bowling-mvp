@@ -46,13 +46,6 @@ class TeamLeague(db.Model):
     league_id = db.Column(db.Integer, db.ForeignKey("leagues.id"), primary_key=True)
 
 
-class BowlerTeam(db.Model):
-    __tablename__ = "bowlers_teams"
-
-    bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
-    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
-
-
 # class BowlerScorecard(db.Model):
 #     __tablename__ = "bowlers_scorecards"
 
@@ -124,6 +117,13 @@ class Bowler(db.Model):
     def __repr__(self):
         u = self
         return f"<Bowler id = {u.id}, first_name = {u.first_name}, last_name = {u.last_name}>"
+
+
+class BowlerTeam(db.Model):
+    __tablename__ = "bowlers_teams"
+
+    bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
 
 
 class Team(db.Model):

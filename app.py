@@ -226,6 +226,15 @@ def delete_bowler():
 # ****************************************************
 
 
+@app.route("/scorecards")
+def show_all_scorecards():
+    """Display all scorecards."""
+
+    scorecards = Scorecard.query.all()
+
+    return render_template("scorecards.html", scorecards=scorecards)
+
+
 @app.route("/scorecards/<int:bowler_id>/new", methods=["GET"])
 def display_new_scorecard(bowler_id):
     """Displays scorecard."""
@@ -238,7 +247,7 @@ def display_new_scorecard(bowler_id):
 
     scorecards = Scorecard.query.all()
 
-    return render_template("scorecard.html")
+    return render_template("scorecard_new.html")
 
 
 @app.route("/scorecards/<int:bowler_id>/new", methods=["POST"])
@@ -335,7 +344,7 @@ def show_scorecard(scorecard_id):
     """Displays a scorecard."""
     scorecard = Scorecard.query.get_or_404(scorecard_id)
 
-    return render_template("single_scorecard.html", scorecard=scorecard)
+    return render_template("scorecard_details.html", scorecard=scorecard)
 
 
 @app.route("/scorecards/<int:scorecard_id>/delete", methods=["POST"])
@@ -364,7 +373,6 @@ def list_teams():
     """Display all teams."""
 
     teams = Team.query.all()
-    bowlers
 
     return render_template("teams.html", teams=teams)
 
@@ -404,7 +412,7 @@ def show_teammates(team_id):
     team = Team.query.get_or_404(team_id)
     bowlers = Bowler.query.all()
 
-    return render_template("teammates.html", team=team, bowlers=bowlers)
+    return render_template("team_teammates.html", team=team, bowlers=bowlers)
 
 
 @app.route("/teams/<int:team_id>/add-bowler", methods=["GET", "POST"])
@@ -488,7 +496,7 @@ def create_league():
         flash("League Created!", "success")
         return redirect("/leagues")
 
-    return render_template("leagues_register.html", form=form)
+    return render_template("league_register.html", form=form)
 
 
 @app.route("/leagues/<int:league_id>/add-team", methods=["GET", "POST"])

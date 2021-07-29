@@ -10,17 +10,20 @@ content%}
 
 <div class="list-group row m-3">
   <div class="col-sm-12">
-    <div class="d-flex w-100 justify-content-between">
-      {% for league in leagues %}
+    {% for league in leagues %}
 
-      <a
-        href="/leagues/{{ league.id }}"
-        class="list-group-item list-group-item-action"
-        >{{ league.name }}</a
-      >
-
-      {% endfor %}
-    </div>
+    <a
+      href="/leagues/{{ league.id }}"
+      class="list-group-item list-group-item-action"
+    >
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ league.name }}</h5>
+        <p></p>
+      </div>
+      <p class="mb-1">{{league.start_date}} - {{league.end_date}}</p>
+      <p class="mb-1">Location: {{league.location}}</p>
+    </a>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

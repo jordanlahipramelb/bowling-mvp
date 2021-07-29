@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block title %}Scorecards{% endblock %} {% block
+content%}
+
+<div class="row banner">
+  <div class="col align-items-center">
+    <h1>Scorecards</h1>
+  </div>
+</div>
+<div class="list-group row m-3">
+  <div class="col-sm-12">
+    {% for scorecard in scorecards %}
+
+    <a
+      href="/scorecards/{{scorecard.id}}"
+      class="list-group-item list-group-item-action"
+    >
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">
+          {{ scorecard.bowler.first_name }} {{ scorecard.bowler.last_name }}
+        </h5>
+        <p class="h3">{{scorecard.total_score}}</p>
+      </div>
+      <p class="mb-1">{{scorecard.date}}</p>
+      <p class="mb-1">{{scorecard.location}}</p>
+    </a>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
