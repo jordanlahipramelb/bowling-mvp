@@ -2,7 +2,7 @@
 
 <div class="row banner">
   <div class="col align-items-center">
-    <h1>{{ league.name }}</h1>
+    <h1>{{ league.name }} League</h1>
     <a
       class="btn btn-lg text-uppercase"
       href="/leagues/{{ league.id }}/add-team"
@@ -12,17 +12,21 @@
 </div>
 
 <div class="list-group row m-3">
-  <div class="col-sm-12">
-    <div class="d-flex w-100 justify-content-between">
-      {% for team in league.teams %}
-      <a
-        href="/teams/{{ teams.id }}"
-        class="list-group-item list-group-item-action"
-        ><li><h5>{{ team.name }}</h5></li></a
-      >
-      {% endfor%}
-    </div>
+  <div class="col-md-4"></div>
+  <div class="col-md-4 mx-auto">
+    {% for team in teams %}
+
+    <a
+      href="/teams/{{ team.id }}"
+      class="list-group-item list-group-item-action"
+    >
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ team.name }}</h5>
+      </div>
+    </a>
+
+    {% endfor %}
+    <div class="col-md-4"></div>
   </div>
 </div>
-
 {% endblock %}

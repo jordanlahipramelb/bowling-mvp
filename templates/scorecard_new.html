@@ -1,565 +1,559 @@
 {% extends 'base.html' %} {% block title %}Bowling Scorecard{% endblock %} {%
 block content %}
-<div class="container">
-  <div class="row justify-content-md-center">
-    <div class="container mx-auto">
-      <h2 class="text-center m-2">Scorecard</h2>
-      <p class="text-center">Track your score below. Have fun!</p>
-
-      <form id="scorecard" method="POST">
-        <label>Enter Date: <input type="date" name="date" /></label>
-        <label>Location: <input type="text" name="location" /></label>
-        <table class="table table-dark table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Frame #</th>
-              <th scope="col">Ball #</th>
-              <th scope="col">Knocked Down Pins</th>
-              <th scope="col">Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>1</td>
-              <td>
-                <select name="f1b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>2</td>
-              <td>
-                <select name="f1b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f1-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>1</td>
-              <td>
-                <select name="f2b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>2</td>
-              <td>
-                <select name="f2b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f2-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>1</td>
-              <td>
-                <select name="f3b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>2</td>
-              <td>
-                <select name="f3b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f3-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>1</td>
-              <td>
-                <select name="f4b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>2</td>
-              <td>
-                <select name="f4b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f4-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>1</td>
-              <td>
-                <select name="f5b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>2</td>
-              <td>
-                <select name="f5b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f5-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>1</td>
-              <td>
-                <select name="f6b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>2</td>
-              <td>
-                <select name="f6b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f6-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">7</th>
-              <td>1</td>
-              <td>
-                <select name="f7b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">7</th>
-              <td>2</td>
-              <td>
-                <select name="f7b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f7-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">8</th>
-              <td>1</td>
-              <td>
-                <select name="f8b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">8</th>
-              <td>2</td>
-              <td>
-                <select name="f8b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f8-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">9</th>
-              <td>1</td>
-              <td>
-                <select name="f9b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">9</th>
-              <td>2</td>
-              <td>
-                <select name="f9b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f9-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">10</th>
-              <td>1</td>
-              <td>
-                <select name="f10b1" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">10</th>
-              <td>2</td>
-              <td>
-                <select name="f10b2" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">10</th>
-              <td>3</td>
-              <td>
-                <select name="f10b3" class="ball">
-                  <option value=""></option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="/">Spare</option>
-                  <option value="X">Strike</option>
-                </select>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="score"
-                  name="f10-score"
-                  size="7"
-                  readonly="true"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Max Score</th>
-              <td></td>
-              <td></td>
-              <td>
-                <input
-                  type="text"
-                  id="max-score"
-                  name="total-score"
-                  size="8"
-                  readonly="true"
-                  value="300"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="mx-auto pb-2">
-          <input
-            type="button"
-            class="btn btn-lg"
-            id="clear"
-            value="Clear scores"
-          />
-          <button type="submit" class="btn btn-lg">Save Game</button>
-        </div>
-      </form>
-    </div>
+<div class="row banner">
+  <div class="col align-items-center">
+    <h1>Scorecard</h1>
+    <p>Track your score below. Have fun!</p>
   </div>
+</div>
+<div class="container">
+  <form id="scorecard" method="POST">
+    <label>Enter Date: <input type="date" name="date" /></label>
+    <label>Location: <input type="text" name="location" /></label>
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Frame #</th>
+          <th scope="col">Ball #</th>
+          <th scope="col">Knocked Down Pins</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>1</td>
+          <td>
+            <select name="f1b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>2</td>
+          <td>
+            <select name="f1b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f1-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>1</td>
+          <td>
+            <select name="f2b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>2</td>
+          <td>
+            <select name="f2b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f2-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>1</td>
+          <td>
+            <select name="f3b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>2</td>
+          <td>
+            <select name="f3b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f3-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>1</td>
+          <td>
+            <select name="f4b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>2</td>
+          <td>
+            <select name="f4b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f4-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>1</td>
+          <td>
+            <select name="f5b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>2</td>
+          <td>
+            <select name="f5b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f5-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td>1</td>
+          <td>
+            <select name="f6b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td>2</td>
+          <td>
+            <select name="f6b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f6-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>1</td>
+          <td>
+            <select name="f7b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>2</td>
+          <td>
+            <select name="f7b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f7-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">8</th>
+          <td>1</td>
+          <td>
+            <select name="f8b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">8</th>
+          <td>2</td>
+          <td>
+            <select name="f8b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f8-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">9</th>
+          <td>1</td>
+          <td>
+            <select name="f9b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">9</th>
+          <td>2</td>
+          <td>
+            <select name="f9b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f9-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>1</td>
+          <td>
+            <select name="f10b1" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>2</td>
+          <td>
+            <select name="f10b2" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>3</td>
+          <td>
+            <select name="f10b3" class="ball">
+              <option value=""></option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="/">Spare</option>
+              <option value="X">Strike</option>
+            </select>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="score"
+              name="f10-score"
+              size="7"
+              readonly="true"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Max Score</th>
+          <td></td>
+          <td></td>
+          <td>
+            <input
+              type="text"
+              id="max-score"
+              name="total-score"
+              size="8"
+              readonly="true"
+              value="300"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="mx-auto pb-2">
+      <input type="button" class="btn btn-lg" id="clear" value="Clear scores" />
+      <button type="submit" class="btn btn-lg">Save Game</button>
+    </div>
+  </form>
 </div>
 <script src="/static/scorecard.js"></script>
 {% endblock %}

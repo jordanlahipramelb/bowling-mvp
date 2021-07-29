@@ -35,14 +35,15 @@ endblock %} {% block content %}
   <div class="col-sm-6">
     <h3 class="text-center">Leagues</h3>
     <ul>
-      {% if bowler.teams.leagues %} {% for league in bowler.teams.leagues %}
+      {% for leagues in bowler.teams.leagues %}
       <li>
         <a href="/leagues/{{ league.id }}">{{ league.name }}</a>
       </li>
-      {% endfor %} {% else %}
-      <p class="text-center">Not present in any leagues.</p>
-      {% endif %}
+      {% endfor %}
     </ul>
   </div>
 </div>
 {% endblock %}
+<!-- {% if bowler.teams.leagues %} {% else %}
+      <p class="text-center">Not present in any leagues.</p>
+      {% endif %} -->

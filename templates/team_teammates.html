@@ -4,22 +4,25 @@
   <div class="col align-items-center">
     <h1>Team {{ team.name }}</h1>
     <a class="btn btn-lg text-uppercase" href="/teams/{{ team.id }}/add-bowler"
-      >Add Bowler To Team</a
-    >
+      >Bowler <i class="fas fa-user-plus"></i
+    ></a>
   </div>
 </div>
 
-<div class="list-group row m-3">
-  <div class="col-sm-12">
-    <div class="d-flex w-100 justify-content-between">
-      {% for bowler in team.bowlers %}
-      <a
-        href="/bowlers/{{ bowler.id }}"
-        class="list-group-item list-group-item-action"
-        ><h5>{{ bowler.first_name }} {{ bowler.last_name }}</h5></a
-      >
-      {% endfor%}
-    </div>
+<div class="list-group row m-4">
+  <div class="col-md-4"></div>
+  <div class="col-md-4 mx-auto">
+    {% for bowler in team.bowlers %}
+    <a
+      href="/bowlers/{{ bowler.id }}"
+      class="list-group-item list-group-item-action"
+    >
+      <div class="d-flex w-100 justify-content-between">
+        <h5>{{ bowler.first_name }} {{ bowler.last_name }}</h5>
+      </div></a
+    >
+    {% endfor%}
+    <div class="col-md-4"></div>
   </div>
 </div>
 
