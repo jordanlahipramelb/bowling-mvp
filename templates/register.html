@@ -3,6 +3,7 @@ content %}
 <div class="row justify-content-md-center">
   <div class="container mx-auto">
     <h2 class="text-center m-4">Join Bowling MVP!</h2>
+    <small>Track your scores and become a better bowler.</small>
     <form method="POST" id="bowler_form">
       {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
       'hidden' %}
