@@ -555,6 +555,7 @@ def add_match(league_id):
             team_2_id=form.team_2.data,
             league_id=league_id,
         )
+
         db.session.add(match)
         db.session.commit()
 
