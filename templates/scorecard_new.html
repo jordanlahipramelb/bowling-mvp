@@ -9,7 +9,21 @@ block content %}
 <div class="container">
   <form id="scorecard" method="POST">
     <label>Enter Date: <input type="date" name="date" /></label>
-    <label>Location: <input type="text" name="location" /></label>
+    <div>
+      <label>Location: <input type="text" name="location" /></label>
+
+      <input
+        type="button"
+        class="btn btn-sm"
+        id="get-geolocation"
+        value="Get Current Location"
+      />
+
+      <p>
+        Your location is <span id="latitude"></span>° latitude by
+        <span id="longitude"></span>° longitude.
+      </p>
+    </div>
     <table class="table table-dark table-striped">
       <thead>
         <tr>
@@ -556,4 +570,5 @@ block content %}
   </form>
 </div>
 <script src="/static/scorecard.js"></script>
+<script src="/static/location.js"></script>
 {% endblock %}
