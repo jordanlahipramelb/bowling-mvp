@@ -35,9 +35,9 @@ endblock %} {% block content %}
   <div class="card col-sm-4 p-3 mx-auto m-1">
     <h3 class="text-center">Leagues</h3>
     <ul>
-      {% for leagues in bowler.teams.leagues %}
+      {% for league in bowler.leagues %}
       <li>
-        <a href="/leagues/{{ league.id }}">{{ league.name }}</a>
+        <a href="/leagues/{{ league.id }}">{{ league }}</a>
       </li>
       {% endfor %}
     </ul>

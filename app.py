@@ -428,7 +428,7 @@ def add_bowler_to_team(team_id):
 
     curr_on_team = [bowler.id for bowler in team.bowlers]
     form.bowler.choices = (
-        db.session.query(Bowler.id, Bowler.first_name)
+        db.session.query(Bowler.id, Bowler.first_name + " " + Bowler.last_name)
         .filter(Bowler.id.notin_(curr_on_team))
         .all()
     )

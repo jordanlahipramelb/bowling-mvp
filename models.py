@@ -22,6 +22,8 @@ class League(db.Model):
     end_date = db.Column(db.Text, nullable=False)
     location = db.Column(db.Text)
 
+    bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
+
     @classmethod
     def register(cls, name, start_date, end_date, location):
         """Register a league."""
@@ -44,15 +46,19 @@ class TeamLeague(db.Model):
 
     team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
     league_id = db.Column(db.Integer, db.ForeignKey("leagues.id"), primary_key=True)
+    bowler_id = db.Column(
+        db.Integer, db.ForeignKey("bowlers_teams.bowler_id"), primary_key=True
+    )
+
+    bowlers = db.relationship("BowlerTeam")
 
 
-# class BowlerScorecard(db.Model):
-#     __tablename__ = "bowlers_scorecards"
+# class BowlerLeague(db.Model):
+
+#     __tablename__ = "bowlers_leagues"
 
 #     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
-#     scorecard_id = db.Column(
-#         db.Integer, db.ForeignKey("scorecards.id"), primary_key=True
-#     )
+#     league_id = db.Column(db.Integer, db.ForeignKey("leagues.id"), primary_key=True)
 
 
 class Bowler(db.Model):
@@ -74,6 +80,7 @@ class Bowler(db.Model):
     scorecards = db.relationship(
         "Scorecard", backref="bowler", cascade="all, delete-orphan"
     )
+    leagues = db.relationship("League", backref="bowlers")
 
     # start_register
     @classmethod
