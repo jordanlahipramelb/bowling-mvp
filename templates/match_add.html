@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block title %}Add Match{% endblock %} {% block
+content %}
+
+<div class="row banner">
+  <div class="col align-items-center">
+    <h1>Add Match</h1>
+    <small class="d-block">Add a match to {{ league.name }} league.</small>
+    <small class="d-block"> Choose opposing teams.</small>
+  </div>
+</div>
+
+<div class="container mx-auto">
+  <form method="POST">
+    {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+    'hidden' %}
+    <div class="container my-3">
+      {{field.label(class="form-label")}}
+      <div>{{field(class="form-control")}}</div>
+    </div>
+    {% endfor %}
+    <button class="btn btn-block my-4">Add Match</button>
+  </form>
+</div>
+
+{% endblock %}

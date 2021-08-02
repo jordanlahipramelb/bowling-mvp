@@ -20,6 +20,7 @@ from forms import (
     LeagueAddEditForm,
     NewTeamForLeagueForm,
     NewBowlerForTeamForm,
+    NewMatchForLeague,
 )
 from sqlalchemy.exc import IntegrityError
 import os
@@ -526,3 +527,37 @@ def add_team_to_league(league_id):
         return redirect(f"/leagues/{league_id}")
 
     return render_template("add_team_to_league.html", league=league, form=form)
+
+
+@app.route("/leagues/<int:league_id>/add-match", methods=["GET", "POST"])
+def add_match(league_id):
+
+    league = League.query.get_or_404(league_id)
+    form = NewMatchForLeague()
+
+    curr_on_league = [team.id for team in league.teams]
+    form.team_1.choices = (
+        db.session.query(Team.id, Team.name)
+        .filter(Team.id.notin_(curr_on_league))
+        .all()
+    )
+    form.team_2.choices = (
+        db.session.query(Team.id, Team.name)
+        .filter(Team.id.notin_(curr_on_league))
+        .all()
+    )
+
+    if form.validate_on_submit():
+
+        match = Match(
+            date=form.date.data,
+            team_1_id=form.team_1.data,
+            team_2_id=form.team_2.data,
+            league_id=league_id,
+        )
+        db.session.add(match)
+        db.session.commit()
+
+        return redirect(f"/leagues/{league_id}")
+
+    return render_template("match_add.html", league=league, form=form)

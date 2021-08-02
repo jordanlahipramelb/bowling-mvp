@@ -146,3 +146,21 @@ class NewTeamForLeagueForm(FlaskForm):
     """Form for adding a song to playlist."""
 
     team = SelectField("Team To Add", coerce=int)
+
+
+class NewMatchForLeague(FlaskForm):
+    """Form for adding a new match to league."""
+
+    date = DateField(
+        "Date",
+        default=date.today(),
+        format="%m/%d/%Y",
+        validators=[DataRequired(message="Please enter a date")],
+    )
+
+    team_1 = SelectField(
+        "Team 1", coerce=int, validators=[DataRequired(message="Please choose a team.")]
+    )
+    team_2 = SelectField(
+        "Team 2", coerce=int, validators=[DataRequired(message="Please choose a team.")]
+    )

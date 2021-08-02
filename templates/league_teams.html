@@ -3,17 +3,18 @@
 <div class="row banner">
   <div class="col align-items-center">
     <h1>{{ league.name }} League</h1>
-    <a
-      class="btn btn-lg text-uppercase"
-      href="/leagues/{{ league.id }}/add-team"
-      >Add Team</a
-    >
   </div>
 </div>
 
-<div class="list-group row m-3">
-  <div class="col-md-4"></div>
-  <div class="col-md-4 mx-auto">
+<div class="row m-2">
+  <div class="card col-md-5 col-lg-5 p-3 m-1 mx-auto">
+    <h3 class="text-center">Teams</h3>
+    <a
+      class="btn btn-sm text-uppercase mb-2"
+      href="/leagues/{{ league.id }}/add-team"
+      >Add Team</a
+    >
+
     {% for team in teams %}
 
     <a
@@ -26,7 +27,31 @@
     </a>
 
     {% endfor %}
-    <div class="col-md-4"></div>
+  </div>
+  <div class="card col-md-5 col-lg-5 p-3 m-1 mx-auto">
+    <h3 class="text-center">Matches</h3>
+    <a
+      class="btn btn-sm text-uppercase mb-2"
+      href="/leagues/{{ league.id }}/add-match"
+      >Add Match</a
+    >
+    <table class="table mx-1">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Teams</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for match in league.matches %}
+        <tr>
+          <td>{{ match.date }}</td>
+          <td>{{ match.team_1_id }} vs {{ match.team_2_id }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
+
 {% endblock %}
