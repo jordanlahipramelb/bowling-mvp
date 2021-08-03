@@ -3,13 +3,14 @@ endblock %} {% block content %}
 
 <div class="row banner">
   <div class="col align-items-center">
-    <h3>{{bowler.first_name}} {{bowler.last_name}}</h3>
+    <h2>{{bowler.first_name}} {{bowler.last_name}}</h2>
     <img src="{{ bowler.image_url }}" alt="user image" id="profile-avatar" />
     <p>{{bowler.city}}, {{bowler.state}}</p>
+    <p>Team {{ team.name }}</p>
   </div>
 </div>
 <div class="row m-3">
-  <div class="card col-sm-4 p-3 mx-auto m-1">
+  <div class="card col-md-5 col-lg-5 p-3 m-1 mx-auto">
     <h3 class="text-center">Scorecards</h3>
     {% if g.bowler.scorecards %}
     <table class="table mx-1">
@@ -32,18 +33,22 @@ endblock %} {% block content %}
     <p class="text-center">No games saved.</p>
     {% endif %}
   </div>
-  <div class="card col-sm-4 p-3 mx-auto m-1">
+  <div class="card col-md-5 col-lg-5 p-3 m-1 mx-auto">
     <h3 class="text-center">Leagues</h3>
-    <ul>
-      {% for league in bowler.leagues %}
-      <li>
-        <a href="/leagues/{{ league.id }}">{{ league }}</a>
-      </li>
-      {% endfor %}
-    </ul>
+    {% if team.leagues %} {% for league in team.leagues %}
+    <a
+      href="/leagues/{{ league.id }}"
+      class="list-group-item list-group-item-action"
+    >
+      <div class="d-flex w-100 justify-content-between">
+        <p class="mb-1">{{ league.name }}</p>
+      </div>
+    </a>
+    {% endfor %} {% else %}
+    <div class="d-flex w-100 justify-content-between">
+      <p class="mb-1">Not present in any leagues.</p>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
-<!-- {% if bowler.teams.leagues %} {% else %}
-      <p class="text-center">Not present in any leagues.</p>
-      {% endif %} -->

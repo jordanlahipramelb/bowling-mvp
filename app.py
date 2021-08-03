@@ -173,7 +173,13 @@ def show_bowler_profile(bowler_id):
 
     scorecards = Scorecard.query.all()
 
-    return render_template("profile.html", bowler=bowler, scorecards=scorecards)
+    bowler_team = BowlerTeam.query.filter(BowlerTeam.bowler_id == bowler_id).one()
+    team_id = bowler_team.team_id
+    team = Team.query.get_or_404(team_id)
+
+    return render_template(
+        "profile.html", bowler=bowler, scorecards=scorecards, team=team
+    )
 
 
 @app.route("/bowlers/<int:bowler_id>/edit", methods=["GET", "POST"])

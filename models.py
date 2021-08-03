@@ -46,14 +46,6 @@ class TeamLeague(db.Model):
     league_id = db.Column(db.Integer, db.ForeignKey("leagues.id"), primary_key=True)
 
 
-# class BowlerLeague(db.Model):
-
-#     __tablename__ = "bowlers_leagues"
-
-#     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
-#     league_id = db.Column(db.Integer, db.ForeignKey("leagues.id"), primary_key=True)
-
-
 class Bowler(db.Model):
     __tablename__ = "bowlers"
 
@@ -122,7 +114,7 @@ class BowlerTeam(db.Model):
     __tablename__ = "bowlers_teams"
 
     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"), primary_key=True)
-    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"), primary_key=True)
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
 
 
 class Team(db.Model):

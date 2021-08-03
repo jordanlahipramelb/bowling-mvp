@@ -9,9 +9,9 @@
   </div>
 </div>
 
-<div class="list-group row m-4">
-  <div class="col-md-4"></div>
-  <div class="col-md-4 mx-auto">
+<div class="row m-3">
+  <div class="card col-md-5 col-lg-5 p-3 m-1 mx-auto">
+    <h3 class="text-center">Members</h3>
     {% for bowler in team.bowlers %}
     <a
       href="/bowlers/{{ bowler.id }}"
@@ -22,7 +22,20 @@
       </div></a
     >
     {% endfor%}
-    <div class="col-md-4"></div>
+  </div>
+  <div class="card col-md-5 col-lg-5 p-3 m-1 mx-auto">
+    <h3 class="text-center">Leagues</h3>
+
+    {% for league in team.leagues %}
+    <a
+      href="/leagues/{{ league.id }}"
+      class="list-group-item list-group-item-action"
+    >
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ league.name }}</h5>
+      </div>
+    </a>
+    {% endfor %}
   </div>
 </div>
 
