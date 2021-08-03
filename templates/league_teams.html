@@ -3,8 +3,8 @@
 <div class="row banner">
   <div class="col align-items-center">
     <h1>{{ league.name }} League</h1>
-    <small>Date: {{ league.start_date }} to {{ league.end_date }}</small>
-    <small>Location: {{ league.location }}</small>
+    <p class="mb-0">Date: {{ league.start_date }} to {{ league.end_date }}</p>
+    <p>Location: {{ league.location }}</p>
   </div>
 </div>
 
@@ -48,7 +48,7 @@
         {% for match in league.matches %}
         <tr>
           <td>{{ match.date }}</td>
-          <td>{{ match.team_1_id }} vs {{ match.team_2_id }}</td>
+          <td>{{ match.team_1.name }} vs {{ match.team_2.name }}</td>
         </tr>
         {% endfor %}
       </tbody>

@@ -5,7 +5,7 @@ endblock %} {% block content %}
   <div class="col align-items-center">
     <h2>{{bowler.first_name}} {{bowler.last_name}}</h2>
     <img src="{{ bowler.image_url }}" alt="user image" id="profile-avatar" />
-    <p>{{bowler.city}}, {{bowler.state}}</p>
+    <p class="mb-0">{{bowler.city}}, {{bowler.state}}</p>
     <p>Team {{ team.name }}</p>
   </div>
 </div>

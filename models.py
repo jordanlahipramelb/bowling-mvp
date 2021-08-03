@@ -145,6 +145,8 @@ class Match(db.Model):
     team_1_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
     team_2_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
 
+    team_1 = db.relationship("Team", foreign_keys=[team_1_id])
+    team_2 = db.relationship("Team", foreign_keys=[team_2_id])
     leagues = db.relationship("League", backref="matches")
 
 
