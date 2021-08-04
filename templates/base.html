@@ -30,11 +30,12 @@
       href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
       rel="stylesheet"
     />
-    <!-- Font Awesome -->
+    <!-- Javascripts -->
     <script
       src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
       crossorigin="anonymous"
     ></script>
+    <script src="http://unpkg.com/jquery"></script>
     <!---------------------->
     <title>{% block title %}{% endblock %}</title>
   </head>
@@ -70,10 +71,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/scorecards">Scorecards</a>
             </li>
-            {% if not g.bowler %}
             <li class="nav-item">
-              <a class="nav-link" href="/login">Login to Track Your Game</a>
+              <a class="nav-link" href="/locate">Locate Lanes</a>
             </li>
+            {% if not g.bowler %}
+
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
             </li>
@@ -132,8 +134,7 @@
     <div class="container alert alert-{{ category }} my-2">{{ message }}</div>
     {% endfor %} {% block content %} {% endblock %}
 
-    <script src="https://unpkg.com/jquery"></script>
-    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script src="https://unpkg.com/axios@0.19.0/dist/axios.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

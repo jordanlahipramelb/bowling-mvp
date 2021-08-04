@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row banner">
+  <div class="col align-items-center">
+    <h1>Locate Bowling Alleys</h1>
+  </div>
+</div>
+<div class="list-group row m-3">
+  <div class="container">
+    <form id="search-form-geolocation">
+      <label for="search-term" class="form-label">Search Term: </label>
+      <input type="text" id="search-term" class="form-control" required />
+      <div class="my-2">
+        <input
+          type="button"
+          id="get-geolocation"
+          value="Allow to use current location"
+          class="btn"
+        />
+        <input type="submit" id="search" class="btn" value="Search" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="list-group row m-3">
+  <div class="col-md-4"></div>
+  <div class="col-md-4 mx-auto" id="places-list"></div>
+  <div class="col-md-4"></div>
+</div>
+
+<script src="/static/location.js"></script>
+{% endblock %}

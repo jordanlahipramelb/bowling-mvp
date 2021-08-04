@@ -568,3 +568,15 @@ def add_match(league_id):
         return redirect(f"/leagues/{league_id}")
 
     return render_template("match_add.html", league=league, form=form)
+
+
+# ****************************************************
+# ************** Location Related *******************
+# ****************************************************
+
+
+@app.route("/locate")
+def show_location_page():
+    """Displays location page."""
+
+    return render_template("locate.html")
