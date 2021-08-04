@@ -147,3 +147,18 @@ body {
 .text-center {
   text-align: center;
 }
+
+.contacts {
+  margin: 2rem;
+  text-align: center;
+}
+.contacts img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.contacts h4 {
+  color: #212529;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
