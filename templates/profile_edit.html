@@ -24,6 +24,9 @@ content %}
       to confirm", class="form-control") }}
 
       <div class="edit-btn-area my-4">
+        <button class="btn" formaction="/bowlers/delete" formmethod="POST">
+          Delete Bowler
+        </button>
         <button class="btn">Make Changes</button>
         <a href="/bowlers/{{ g.bowler.id }}" class="btn">Cancel</a>
       </div>

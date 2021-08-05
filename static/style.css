@@ -162,3 +162,15 @@ body {
   margin-top: 1.5rem;
   margin-bottom: 0;
 }
+
+a,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: #ffc800;
+  text-decoration: none;
+}

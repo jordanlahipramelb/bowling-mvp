@@ -226,11 +226,11 @@ def delete_bowler():
         return redirect("/")
 
     do_logout()
-
+    flash("Bowler Deleted", "danger")
     db.session.delete(g.bowler)
     db.session.commit()
 
-    return redirect("/register")
+    return redirect("/")
 
 
 # ****************************************************
@@ -340,7 +340,7 @@ def submit_scorecard(bowler_id):
         frame10_1_pins=f10b1,
         frame10_2_pins=f10b2,
         frame10_3_pins=f10b3,
-        frame10_score=f1_score,
+        frame10_score=f10_score,
         total_score=total_score,
         bowler_id=g.bowler.id,
     )
@@ -371,7 +371,7 @@ def delete_scorecard(scorecard_id):
 
     db.session.delete(scorecard)
     db.session.commit()
-
+    flash("Scorecard deleted.", "danger")
     return redirect(f"/bowlers/{g.bowler.id}")
 
 

@@ -63,7 +63,7 @@ class Bowler(db.Model):
     )
 
     scorecards = db.relationship(
-        "Scorecard", backref="bowler", cascade="all, delete-orphan"
+        "Scorecard", backref="bowlers", cascade="all, delete-orphan"
     )
 
     # start_register
@@ -191,7 +191,4 @@ class Scorecard(db.Model):
     total_score = db.Column(db.Text, nullable=False)
     bowler_id = db.Column(db.Integer, db.ForeignKey("bowlers.id"))
 
-    # frame_number = db.Column(db.Text)
-    # ball_number = db.Column(db.Text)
-    # frame_score = db.Column(db.Text)
-    # total_score = db.Column(db.Text, nullable=False)
+    bowler = db.relationship("Bowler", foreign_keys=[bowler_id])

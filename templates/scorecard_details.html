@@ -1,0 +1,168 @@
+{% extends 'base.html' %} {% block title %}Scorecard{% endblock %} {% block
+content%}
+
+<div class="row banner">
+  <div class="col align-items-center">
+    <h3>
+      <a href="/bowlers/{{scorecard.bowler.id}}"
+        >{{scorecard.bowler.first_name}} {{scorecard.bowler.last_name}}'s</a
+      >
+      Scorecard
+    </h3>
+    <p class="mb-0">Bowled at <b>{{ scorecard.location }}</b></p>
+    <p>{{ scorecard.date }}</p>
+  </div>
+</div>
+
+<div class="list-group row m-4">
+  <div class="col-md-3"></div>
+  <div class="col-md-5 mx-auto">
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Frame #</th>
+          <th scope="col">Ball #</th>
+          <th scope="col">Knocked Down Pins</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>1</td>
+          <td>{{ scorecard.frame1_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>2</td>
+          <td>{{ scorecard.frame1_2_pins }}</td>
+          <td>{{ scorecard.frame1_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>1</td>
+          <td>{{ scorecard.frame2_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>2</td>
+          <td>{{ scorecard.frame2_2_pins }}</td>
+          <td>{{ scorecard.frame2_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>1</td>
+          <td>{{ scorecard.frame3_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>2</td>
+          <td>{{ scorecard.frame3_2_pins }}</td>
+          <td>{{ scorecard.frame3_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>1</td>
+          <td>{{ scorecard.frame4_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>2</td>
+          <td>{{ scorecard.frame4_2_pins }}</td>
+          <td>{{ scorecard.frame4_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>1</td>
+          <td>{{ scorecard.frame5_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>2</td>
+          <td>{{ scorecard.frame5_2_pins }}</td>
+          <td>{{ scorecard.frame5_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td>1</td>
+          <td>{{ scorecard.frame6_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td>2</td>
+          <td>{{ scorecard.frame6_2_pins }}</td>
+          <td>{{ scorecard.frame6_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>1</td>
+          <td>{{ scorecard.frame7_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>2</td>
+          <td>{{ scorecard.frame7_2_pins }}</td>
+          <td>{{ scorecard.frame7_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">8</th>
+          <td>1</td>
+          <td>{{ scorecard.frame8_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">8</th>
+          <td>2</td>
+          <td>{{ scorecard.frame8_2_pins }}</td>
+          <td>{{ scorecard.frame8_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">9</th>
+          <td>1</td>
+          <td>{{ scorecard.frame9_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">9</th>
+          <td>2</td>
+          <td>{{ scorecard.frame9_2_pins }}</td>
+          <td>{{ scorecard.frame9_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>1</td>
+          <td>{{ scorecard.frame10_1_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>2</td>
+          <td>{{ scorecard.frame10_2_pins }}</td>
+        </tr>
+        <tr>
+          <th scope="row">10</th>
+          <td>3</td>
+          <td>{{ scorecard.frame10_3_pins }}</td>
+          <td>{{ scorecard.frame10_score }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Max Score</th>
+          <td></td>
+          <td></td>
+          <td>{{ scorecard.total_score }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    {% if scorecard.bowler.id == g.bowler.id %}
+    <form>
+      <button
+        class="btn"
+        formaction="/scorecards/{{ scorecard.id }}/delete"
+        formmethod="POST"
+      >
+        Delete Scorecard
+      </button>
+    </form>
+    {% else %}{% endif %}
+    <div class="col-md-3"></div>
+  </div>
+</div>
+{% endblock %}

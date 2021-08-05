@@ -23,8 +23,14 @@ endblock %} {% block content %}
       <tbody>
         {% for scorecard in bowler.scorecards %}
         <tr>
-          <td>{{ scorecard.date }}</td>
-          <td>{{ scorecard.total_score }}</td>
+          <td>
+            <a href="/scorecards/{{scorecard.id}}">{{ scorecard.date }}</a>
+          </td>
+          <td>
+            <a href="/scorecards/{{scorecard.id}}"
+              >{{ scorecard.total_score }}</a
+            >
+          </td>
         </tr>
         {% endfor %}
       </tbody>
