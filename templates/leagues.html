@@ -12,7 +12,7 @@ content%}
 <div class="list-group row m-4">
   <div class="col-md-3"></div>
   <div class="col-md-5 mx-auto">
-    {% for league in leagues %}
+    {% if leagues %} {% for league in leagues %}
 
     <a
       href="/leagues/{{ league.id }}"
@@ -25,7 +25,9 @@ content%}
       <p class="mb-1">{{league.start_date}} - {{league.end_date}}</p>
       <p class="mb-1">Location: {{league.location}}</p>
     </a>
-    {% endfor %}
+    {% endfor %} {% else %}
+    <h5>No leagues yet!</h5>
+    {% endif %}
     <div class="col-md-3"></div>
   </div>
 </div>

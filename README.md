@@ -1,8 +1,8 @@
-# Capstone 1: Bowling Scorecard
+# Capstone 1: Bowling MVP
 
 ## Search API via MapQuest
 
--   https://developer.mapquest.com/documentation/search-api/v4/swagger/
+- https://developer.mapquest.com/documentation/search-api/v4/swagger/
 
 ## Schema Design
 

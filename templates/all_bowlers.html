@@ -9,7 +9,7 @@ content%}
 <div class="list-group row m-3">
   <div class="col-md-4"></div>
   <div class="col-md-4 mx-auto">
-    {% for bowler in bowlers %}
+    {% if bowlers %} {% for bowler in bowlers %}
 
     <a
       href="/bowlers/{{ bowler.id }}"
@@ -23,7 +23,9 @@ content%}
       </div>
     </a>
 
-    {% endfor %}
+    {% endfor %} {% else %}
+    <h5>No bowlers bowling on our site yet!</h5>
+    {% endif %}
     <div class="col-md-4"></div>
   </div>
 </div>
