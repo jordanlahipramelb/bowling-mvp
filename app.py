@@ -30,6 +30,7 @@ CURR_BOWLER_KEY = "curr_bowler"
 
 app = Flask(__name__)
 
+
 uri = os.environ.get("DATABASE_URL", "postgresql:///bowling_db")
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
@@ -178,9 +179,15 @@ def show_bowler_profile(bowler_id):
 
     scorecards = Scorecard.query.all()
 
-    bowler_team = BowlerTeam.query.filter(BowlerTeam.bowler_id == bowler_id).one()
-    team_id = bowler_team.team_id
-    team = Team.query.get_or_404(team_id)
+    bowler_team = BowlerTeam.query.filter(BowlerTeam.bowler_id == bowler_id).first()
+
+    if bowler_team is None:
+        team_id = 0
+
+    else:
+        team_id = bowler_team.team_id
+
+    team = Team.query.get(team_id)
 
     return render_template(
         "profile.html", bowler=bowler, scorecards=scorecards, team=team
@@ -475,9 +482,8 @@ def show_teams_in_league(league_id):
     """Show names of teams in a league."""
 
     league = League.query.get_or_404(league_id)
-    teams = Team.query.all()
 
-    return render_template("league_teams.html", league=league, teams=teams)
+    return render_template("league_teams.html", league=league)
 
 
 @app.route("/leagues/add", methods=["GET", "POST"])
