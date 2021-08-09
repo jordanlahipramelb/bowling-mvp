@@ -143,6 +143,10 @@ function calculateScores() {
 
       // Frame 9
       if (j == 16) {
+        if (balls[j + 1].value != '') {
+          balls[j + 1].value = '';
+        }
+
         // Next ball is the 1st ball in the next frame
         nextBall = balls[j + 2].value;
 
